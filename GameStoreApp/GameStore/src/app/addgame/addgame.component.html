@@ -1,0 +1,32 @@
+<div class="container card col-sm-6">
+    <div class="card-header">Add new game</div>
+    <div class="card-body">
+        <div *ngIf="!submitted">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" [(ngModel)]="game.name" name="name" />
+            </div>
+            <div class="form-group">
+                <label for="image">Image(add extension e.g. image.png)</label>
+                <input type="text" class="form-control" id="image" [(ngModel)]="game.image" name="image" />
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" [(ngModel)]="game.price" name="price" />
+            </div>
+            <div class="form-group">
+                <label for="releaseDate">Release Date</label>
+                <input type="text" class="form-control" id="releaseDate" [(ngModel)]="game.releaseDate" name="releaseDate" />
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" id="rating" [(ngModel)]="game.rating" name="rating" />
+            </div>
+            <button (click)="saveGame()" class="btn btn-success">Submit</button>
+        </div>
+        <div *ngIf="submitted">
+            <h4>Game was submitted successfully!</h4>
+            <button class="btn btn-success" (click)="newGame()">Back</button>
+        </div>
+    </div>
+</div>

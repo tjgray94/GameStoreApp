@@ -1,0 +1,40 @@
+<div class="card">
+    <div *ngIf="game.gameId" class="card-header">
+        <h4>Game Details</h4>
+    </div>
+    <div class="card-body">
+        <table>
+            <tbody>
+                <tr>
+                    <td><img width="200" src="assets/{{game.image}}"></td>
+                    <td class="float-right pull-right col-md">
+                        <label for="name">Name:</label>
+                        {{ game.name }}
+                        <br>
+                        <label for="price">Price:</label>
+                        {{ game.price }}
+                        <br>
+                        <label for="releaseDate">Release Date:</label>
+                        {{ game.releaseDate }}
+                        <br>
+                        <label for="rating">Rating:</label>
+                        {{ game.rating }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <button class="badge badge-danger mr-2" (click)="deleteGame()">Delete</button>
+        <button type="submit" class="badge badge-success mb-2" (click)="updateGame()">Update</button>
+        <button class='badge badge-success' (click)='onBack()'>
+            <i class='fa fa-chevron-left'></i> Back
+        </button>
+    </div>
+    <div *ngIf="!game.gameId">
+        <br />
+        <p>Cannot access this game...</p>
+    </div>
+</div>
+
+
