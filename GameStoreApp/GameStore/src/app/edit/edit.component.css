@@ -1,0 +1,41 @@
+.update-game-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #343a40;
+}
+
+.game-form .form-group {
+  margin-bottom: 20px;
+}
+
+.game-form label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.game-form input {
+  height: 45px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.game-form .btn {
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.btn-block {
+  width: 100%;
+}

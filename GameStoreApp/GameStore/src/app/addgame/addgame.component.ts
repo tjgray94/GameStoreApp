@@ -31,8 +31,11 @@ export class AddgameComponent implements OnInit {
       releaseDate: this.game.releaseDate,
       rating: this.game.rating
     };
-    this.gameService.create(data)
-      .subscribe(response => { console.log(response); this.submitted = true })
+    console.log(data)
+    this.gameService.create(data).subscribe(response => { 
+      console.log(response); 
+      this.submitted = true 
+    })
   }
 
   newGame(): void {

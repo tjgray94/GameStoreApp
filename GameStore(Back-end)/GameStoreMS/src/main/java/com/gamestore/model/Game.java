@@ -21,8 +21,8 @@ import lombok.ToString;
 public class Game {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int gameId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer gameId;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "image")

@@ -1,40 +1,28 @@
-<div class="card">
-    <div *ngIf="game.gameId" class="card-header">
-        <h4>Game Details</h4>
+<div class="card game-detail-card">
+  <div *ngIf="game.gameId" class="card-header"><h4>Game Details</h4></div>
+
+  <div class="card-body">
+    <div class="game-detail-content">
+      <div class="game-image"><img src="assets/{{ game.image }}" /></div>
+
+      <div class="game-info">
+        <p><strong>Name: </strong>{{ game.name }}</p>
+        <p><strong>Price: </strong>{{ game.price | currency }}</p>
+        <p><strong>Release Date: </strong>{{ game.releaseDate }}</p>
+        <p><strong>Rating: </strong>{{ game.rating }}</p>
+      </div>
     </div>
-    <div class="card-body">
-        <table>
-            <tbody>
-                <tr>
-                    <td><img width="200" src="assets/{{game.image}}"></td>
-                    <td class="float-right pull-right col-md">
-                        <label for="name">Name:</label>
-                        {{ game.name }}
-                        <br>
-                        <label for="price">Price:</label>
-                        {{ game.price }}
-                        <br>
-                        <label for="releaseDate">Release Date:</label>
-                        {{ game.releaseDate }}
-                        <br>
-                        <label for="rating">Rating:</label>
-                        {{ game.rating }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="card-footer">
-        <button class="badge badge-danger mr-2" (click)="deleteGame()">Delete</button>
-        <button type="submit" class="badge badge-success mb-2" (click)="updateGame()">Update</button>
-        <button class='badge badge-success' (click)='onBack()'>
-            <i class='fa fa-chevron-left'></i> Back
-        </button>
-    </div>
-    <div *ngIf="!game.gameId">
-        <br />
-        <p>Cannot access this game...</p>
-    </div>
+  </div>
+
+  <div class="card-footer button-group">
+    <button class="btn btn-danger" (click)="deleteGame()">Delete</button>
+    <a [routerLink]="['/api/games', currentGame.gameId, 'edit']" class="btn btn-success">Update</a>
+    <button class='btn btn-secondary' (click)='onBack()'>
+      <i class='fa fa-chevron-left'></i> Back
+    </button>
+  </div>
+  <div *ngIf="!game.gameId">
+    <br />
+    <p>Cannot access this game...</p>
+  </div>
 </div>
-
-

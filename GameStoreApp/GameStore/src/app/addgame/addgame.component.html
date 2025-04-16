@@ -1,32 +1,41 @@
-<div class="container card col-sm-6">
-    <div class="card-header">Add new game</div>
-    <div class="card-body">
-        <div *ngIf="!submitted">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="game.name" name="name" />
-            </div>
-            <div class="form-group">
-                <label for="image">Image(add extension e.g. image.png)</label>
-                <input type="text" class="form-control" id="image" [(ngModel)]="game.image" name="image" />
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="number" class="form-control" id="price" [(ngModel)]="game.price" name="price" />
-            </div>
-            <div class="form-group">
-                <label for="releaseDate">Release Date</label>
-                <input type="text" class="form-control" id="releaseDate" [(ngModel)]="game.releaseDate" name="releaseDate" />
-            </div>
-            <div class="form-group">
-                <label for="rating">Rating</label>
-                <input type="number" class="form-control" id="rating" [(ngModel)]="game.rating" name="rating" />
-            </div>
-            <button (click)="saveGame()" class="btn btn-success">Submit</button>
-        </div>
-        <div *ngIf="submitted">
-            <h4>Game was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newGame()">Back</button>
-        </div>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card p-4 col-sm-8 shadow">
+    <h3 class="text-center mb-4">Add New Game</h3>
+    
+    <div *ngIf="!submitted">
+      <div class="form-group mb-3">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="game.name" name="name" placeholder="e.g. The Legend of Zelda"/>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="image">Image Filename (with extension)</label>
+        <input type="text" class="form-control" id="image" [(ngModel)]="game.image" name="image" placeholder="e.g. zelda.png" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" [(ngModel)]="game.price" name="price" min="0" placeholder="e.g. 49.99" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="releaseDate">Release Date</label>
+        <input type="text" class="form-control" id="releaseDate" [(ngModel)]="game.releaseDate" name="releaseDate"  placeholder="e.g. 11/21/1998" />
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="rating">Rating (1-10)</label>
+        <input type="number" class="form-control" id="rating" [(ngModel)]="game.rating" name="rating" min="0" max="10" placeholder="e.g. 9.5" />
+      </div>
+
+      <div class="text-center">
+        <button (click)="saveGame()" class="btn btn-primary px-4">Submit</button>
+      </div>
     </div>
+
+    <div *ngIf="submitted" class="text-center">
+      <h5 class="text-success mb-3">Game was submitted successfully!</h5>
+      <button class="btn btn-outline-primary" (click)="newGame()">Back</button>
+    </div>
+  </div>
 </div>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Game } from './game';
-import { Games } from './games';
+// import { Games } from './games';
 
 const baseUrl = 'http://localhost:5001/api/games';
 
@@ -25,9 +25,9 @@ export class GameService {
                   responseType: 'text'
                 }
 
-  getAllGames(){
-    return Games;
-  }
+  // getAllGames(){
+  //   return Games;
+  // }
 
   // getGames(): Observable<Game[]> {
   //   return this.http.get<Game[]>(this._gameUrl).pipe(
@@ -55,6 +55,7 @@ export class GameService {
       catchError(this.handleError)
     )
   }
+  
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
@@ -66,6 +67,7 @@ export class GameService {
       catchError(this.handleError)
     );
   }
+
   update(id: any, data: any): Observable<any> {
     return this.http.put<any>(`${baseUrl}/${id}`, data)
   }

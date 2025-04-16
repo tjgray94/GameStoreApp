@@ -8,6 +8,7 @@ INSERT INTO games VALUES (7, 'Halo.jpg', 'Halo 3', 35.99, 1.0, 'September 25, 20
 INSERT INTO games VALUES (8, 'Spiderman.jpg', 'Spiderman: Miles Morales', 49.99, 3.5, 'November 12, 2020');
 INSERT INTO games VALUES (9, 'NeedForSpeed.jpg', 'Need for Speed Underground 2', 22.99, 3.5, 'November 9, 2004');
 INSERT INTO games VALUES (10, 'Fortnite.jpg', 'Fortnite', 9.99, 2.5, 'July 25, 2017');
+SELECT setval(pg_get_serial_sequence('games', 'game_id'), (SELECT MAX(game_id) FROM games));
 
 DELETE FROM games;
 

@@ -27,7 +27,8 @@ export class EditComponent implements OnInit {
   }
 
   submit(){
-    this.gameService.update(this.id, this.form.value).subscribe(res => {
+    const gameData = this.game;
+    this.gameService.update(this.id, gameData).subscribe(res => {
       this.router.navigateByUrl('/api/games')
     })
   }

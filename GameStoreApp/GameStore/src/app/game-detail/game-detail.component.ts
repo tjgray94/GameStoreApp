@@ -31,6 +31,7 @@ export class GameDetailComponent implements OnInit {
     this.id = this.route.snapshot.params['gameId'];
     this.gameService.getGame(this.id).subscribe(data => {
       this.game = data;
+      this.currentGame = { ...data };
     })
   }
 
@@ -44,14 +45,10 @@ export class GameDetailComponent implements OnInit {
     })
   }
 
-  updateGame(): void {
-    this.gameService.update(this.currentGame.gameId, this.currentGame).subscribe(data => {
-      console.log(data)
-    })
-  }
-
   deleteGame(): void {
-    this.gameService.delete(this.currentGame.gameId)
+    this.gameService.delete(this.currentGame.gameId).subscribe(() => {
+      this.router.navigate(['/api/games']);
+    })
   }
 
   onBack(): void {

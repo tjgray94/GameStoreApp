@@ -42,9 +42,9 @@ export class GameListComponent implements OnInit, OnDestroy {
     })
   }
 
-  getAllGames(){
-    this.games = this.gameService.getAllGames();
-  }
+  // getAllGames(){
+  //   this.games = this.gameService.getAllGames();
+  // }
 
   // getGames() {
   //   this.gameService.getGames().subscribe({
@@ -101,6 +101,7 @@ toggleImage(): void {
       next:(game: any) => this.games.push(game)
     })
   }
+
   updateGame(id: string, name: string, image: string, _price: string, releaseDate: string, _rating: string): void {
     let gameId = parseInt(id)
     let price = parseInt(_price)
@@ -109,10 +110,12 @@ toggleImage(): void {
       next:(game: any) => this.games = game
     })
   }
+
   deleteGame(id: string): void {
     let gameId = parseInt(id)
     this.gameService.deleteGame(gameId).subscribe({next:(game: any) => this.games = game})
   }
+  
   delete(id: number | undefined) {
     this.gameService.delete(id).subscribe(res => {this.games = this.games.filter(game => game.gameId !==id)})
   }

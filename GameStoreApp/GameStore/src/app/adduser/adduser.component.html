@@ -1,23 +1,31 @@
-<div>
-    <div class="submit-form">
-        <div *ngIf="!submitted">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name" />
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" [(ngModel)]="user.email" name="email" />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="text" class="form-control" id="password" [(ngModel)]="user.password" name="password" />
-            </div>
-            <button (click)="saveUser()" class="btn btn-success">Submit</button>
-        </div>
-        <div *ngIf="submitted">
-            <h4>User was added successfully!</h4>
-            <button class="btn btn-success" (click)="newUser()">Back</button>
-        </div>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card p-4 col-sm-6 shadow">
+    <h3 class="text-center mb-4">Create New User</h3>
+
+    <div *ngIf="!submitted">
+      <div class="form-group mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name" />
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" />
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" />
+      </div>
+
+      <div class="text-center">
+        <button (click)="saveUser()" class="btn btn-primary px-4">Submit</button>
+      </div>
     </div>
+
+    <div *ngIf="submitted" class="text-center">
+      <h5 class="text-success mb-3">User was added successfully!</h5>
+      <button class="btn btn-outline-primary" (click)="newUser()">Back</button>
+    </div>
+  </div>
 </div>
