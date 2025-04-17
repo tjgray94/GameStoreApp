@@ -35,7 +35,7 @@ public class Game {
 
 	@Column(name = "releasedate")
 	private String releaseDate;
-	
+
 	@Column(name = "rating")
 	private double rating;
 	
