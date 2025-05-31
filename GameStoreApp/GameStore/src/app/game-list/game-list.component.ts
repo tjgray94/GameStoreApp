@@ -91,7 +91,10 @@ toggleImage(): void {
   ngOnInit(): void {
     // this.getGames();
     this.gameService.getAll()
-      .subscribe((data) => {this.games = data});
+      .subscribe((data) => {
+        this.games = data;
+        this.filteredGames = data;
+      });
   }
 
   addGame(name: string, image: string, _price: string, releaseDate: string, _rating: string): void {
