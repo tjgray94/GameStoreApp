@@ -1,6 +1,12 @@
 .crop {
-    overflow: hidden;
+  overflow: hidden;
 }
 div {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+/* Make stars display inline with no wrapping */
+.fa-star {
+  font-size: 15px;
+  display: inline-block;
 }

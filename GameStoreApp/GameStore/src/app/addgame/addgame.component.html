@@ -3,39 +3,59 @@
     <h3 class="text-center mb-4">Add New Game</h3>
     
     <div *ngIf="!submitted">
-      <div class="form-group mb-3">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" [(ngModel)]="game.name" name="name" placeholder="e.g. The Legend of Zelda"/>
-      </div>
+      <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+        <div class="form-group mb-3">
+          <label for="name">Name *</label>
+          <input type="text" class="form-control" id="name" formControlName="name" placeholder="e.g. The Legend of Zelda" 
+                [ngClass]="{ 'is-invalid': formSubmitted && f.name.errors }"/>
+          <div *ngIf="formSubmitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+          </div>
+        </div>
 
-      <div class="form-group mb-3">
-        <label for="image">Image Filename (with extension)</label>
-        <input type="text" class="form-control" id="image" [(ngModel)]="game.image" name="image" placeholder="e.g. zelda.png" />
-      </div>
+        <div class="form-group mb-3">
+          <label for="image">Image Filename (with extension)</label>
+          <input type="text" class="form-control" id="image" formControlName="image" placeholder="e.g. zelda.png" />
+        </div>
 
-      <div class="form-group mb-3">
-        <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" [(ngModel)]="game.price" name="price" min="0" placeholder="e.g. 49.99" />
-      </div>
+        <div class="form-group mb-3">
+          <label for="price">Price *</label>
+          <input type="number" class="form-control" id="price" formControlName="price" placeholder="e.g. 49.99" step="0.01"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.price.errors }"/>
+          <div *ngIf="formSubmitted && f.price.errors" class="invalid-feedback">
+            <div *ngIf="f.price.errors.required">Price is required</div>
+            <div *ngIf="f.price.errors.min">Price must be greater than or equal to 0</div>
+          </div>
+        </div>
 
-      <div class="form-group mb-3">
-        <label for="releaseDate">Release Date</label>
-        <input type="text" class="form-control" id="releaseDate" [(ngModel)]="game.releaseDate" name="releaseDate"  placeholder="e.g. 11/21/1998" />
-      </div>
+        <div class="form-group mb-3">
+          <label for="releaseDate">Release Date *</label>
+          <input type="text" class="form-control" id="releaseDate" formControlName="releaseDate" placeholder="e.g. 11/21/1998"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.releaseDate.errors }"/>
+          <div *ngIf="formSubmitted && f.releaseDate.errors" class="invalid-feedback">
+            <div *ngIf="f.releaseDate.errors.required">Release date is required</div>
+          </div>
+        </div>
 
-      <div class="form-group mb-4">
-        <label for="rating">Rating (1-10)</label>
-        <input type="number" class="form-control" id="rating" [(ngModel)]="game.rating" name="rating" min="0" max="10" placeholder="e.g. 9.5" />
-      </div>
+        <div class="form-group mb-4">
+          <label for="rating">Rating (0-5) *</label>
+          <input type="number" class="form-control" id="rating" formControlName="rating" placeholder="e.g. 4.7" step="0.1"
+                [ngClass]="{ 'is-invalid': formSubmitted && f.rating.errors }"/>
+          <div *ngIf="formSubmitted && f.rating.errors" class="invalid-feedback">
+            <div *ngIf="f.rating.errors.min">Rating must be at least 0</div>
+            <div *ngIf="f.rating.errors.max">Rating cannot exceed 5</div>
+          </div>
+        </div>
 
-      <div class="text-center">
-        <button (click)="saveGame()" class="btn btn-primary px-4">Submit</button>
-      </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary px-4">Submit</button>
+        </div>
+      </form>
     </div>
 
     <div *ngIf="submitted" class="text-center">
       <h5 class="text-success mb-3">Game was submitted successfully!</h5>
-      <button class="btn btn-outline-primary" (click)="newGame()">Back</button>
+      <button class="btn btn-outline-primary" (click)="newGame()">Add Another Game</button>
     </div>
   </div>
 </div>

@@ -1,9 +1,9 @@
 <div class="container card col-md-10 col-lg-12">
-  <div class="card-header text-center bg-primary text-white"><h2>{{ pageTitle }}</h2></div>
+  <div class="card-header text-center"><h2>{{ pageTitle }}</h2></div>
   <div class="card-body">
     <div *ngIf="games && games.length > 0">
       <div class="table-container">
-        <table class="table table-hover">
+        <table class="table">
           <thead>
             <tr>
               <th>ID</th>
@@ -19,45 +19,51 @@
             <tr *ngFor="let game of games; let i = index" [class.active]="i == currentIndex" (click)="setActiveGame(game, i)">
               <td>{{ game.gameId }}</td>
               <td>{{ game.name }}</td>
-              <td><img class="game-image" src="assets/{{ game.image }}"></td>
+              <td><img class="game-image" src="assets/{{ game.image }}" alt="{{ game.name }}"></td>
               <td>{{ game.price | currency }}</td>
               <td>{{ game.releaseDate | date: 'shortDate' }}</td>
               <td>
                 <star [rating]='game.rating' (ratingClicked)='onRatingClicked($event)'></star>
               </td>
               <td class="actions">
-                <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm">View</a>
-                <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary btn-sm">Edit</a>
-                <button type="button" (click)="delete(game.gameId)" class="btn btn-outline-danger btn-sm">Delete</button>
+                <a routerLink="{{ game.gameId }}" class="btn btn-outline-info">View</a>
+                <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary">Edit</a>
+                <button type="button" (click)="delete(game.gameId)" class="btn btn-outline-danger">Delete</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
   
-      <button class="mt-3 btn btn-outline-danger delete-all-btn" (click)="removeAllGames()">Delete All</button>
+      <button class="btn btn-outline-danger delete-all-btn" (click)="removeAllGames()">Delete All</button>
+    </div>
+    
+    <div *ngIf="!games || games.length === 0" class="no-games">
+      <p>No games available. Add some games to get started!</p>
     </div>
   </div>
-  <div class="col-md-6">
-    <div *ngIf="currentGame">
-      <h4>Game</h4>
+  
+  <div class="col-md-6" *ngIf="currentGame">
+    <div class="game-details">
+      <h4>Game Details</h4>
       <div>
         <label><strong>Name:</strong></label> {{ currentGame.name }}
       </div>
       <div>
-        <label><strong>Price:</strong></label> {{ currentGame.price }}
+        <label><strong>Price:</strong></label> {{ currentGame.price | currency }}
       </div>
       <div>
-        <label><strong>Release Date:</strong></label> {{ currentGame.releaseDate }}
+        <label><strong>Release Date:</strong></label> {{ currentGame.releaseDate | date: 'mediumDate' }}
       </div>
       <div>
         <label><strong>Rating:</strong></label> {{ currentGame.rating }}
       </div>
-      <a class="badge badge-warning" routerLink="/games/{{ currentGame.gameId }}">Edit</a>
+      <a class="badge badge-warning" routerLink="/games/{{ currentGame.gameId }}">Edit Game</a>
     </div>
-    <div *ngIf="!currentGame">
-      <br />
-      <p>Please click on a Tutorial...</p>
+  </div>
+  <div *ngIf="!currentGame && games && games.length > 0" class="col-md-6">
+    <div class="select-game">
+      <p>Select a game to view details</p>
     </div>
   </div>
 </div>

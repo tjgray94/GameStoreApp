@@ -1,79 +1,130 @@
-/* Main card layout */
+/* Modern card layout with improved aesthetics */
 .card {
   margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   max-width: 95%;
   margin-left: auto;
   margin-right: auto;
+  border: none;
+  overflow: hidden;
 }
 
-/* Header */
+/* Header with gradient background */
 .card-header {
-  background-color: #007bff;
-  padding: 20px;
-  font-size: 1.5rem;
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
+  font-size: 1.6rem;
   text-align: center;
   color: white;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: none;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 /* Table container for responsiveness */
 .table-container {
   width: 100%;
   overflow-x: auto;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 
-/* Table styling */
+/* Modern table styling */
 .table {
   width: 100%;
   table-layout: auto;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin-bottom: 0;
 }
 
 /* Table header cells */
 .table th {
-  background-color: #007bff;
-  color: white;
+  background-color: #f8f9fa;
+  color: #495057;
   text-align: center;
-  padding: 15px;
+  padding: 16px;
   white-space: nowrap;
+  font-weight: 600;
+  border: none;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+/* Rating column width adjustment */
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  min-width: 90px;
+  width: 90px;
 }
 
 /* Table body cells */
 .table td {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   text-align: center;
-  padding: 12px;
+  padding: 16px;
   vertical-align: middle;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
 }
 
-/* Active row highlight */
+/* First and last cell in each row */
+.table tr td:first-child {
+  border-left: 1px solid rgba(0,0,0,0.05);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.table tr td:last-child {
+  border-right: 1px solid rgba(0,0,0,0.05);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Active row highlight with subtle animation */
 .table tbody tr.active {
-  background-color: #d6f1fd;
+  background-color: #e8f4fd;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* Row hover effect */
 .table tbody tr:hover {
-  background-color: #e9ecef;
+  background-color: #f8f9fa;
   cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
 /* Game name cell */
 .table td:nth-child(2) {
-  text-align: left; /* Align names to the left */
-  word-wrap: break-word; /* Allow text to wrap to next line if needed */
-  overflow: hidden; /* Prevent overflow */
+  text-align: left;
+  word-wrap: break-word;
+  overflow: hidden;
+  font-weight: 500;
+  color: #212529;
 }
 
 /* Game image styling */
 .game-image {
-  width: 100px;
-  height: auto;
-  border-radius: 5px;
-  object-fit: contain;
+  width: 120px;
+  height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
   max-width: 100%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.game-image:hover {
+  transform: scale(1.05);
 }
 
 /* Action buttons column */
@@ -82,51 +133,108 @@ td.actions {
 }
 
 td.actions .btn {
-  margin: 2px;
-  min-width: 60px;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 5px;
+  margin: 3px;
+  min-width: 70px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* View/Edit Buttons */
-.btn-outline-info, .btn-outline-primary {
+td.actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* View Button */
+.btn-outline-info {
+  border: 1px solid #17a2b8;
+  color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* Edit Button */
+.btn-outline-primary {
   border: 1px solid #007bff;
   color: #007bff;
 }
 
-/* Delete buttons */
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Delete button */
 .btn-outline-danger {
   border: 1px solid #dc3545;
   color: #dc3545;
 }
 
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
 /* Delete All button */
 .delete-all-btn {
-  width: 100%;
-  font-size: 1.2rem;
-  padding: 10px 20px;
+  width: auto;
+  font-size: 1rem;
+  padding: 12px 24px;
   margin-top: 20px;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  float: right;
+  transition: all 0.3s ease;
+}
+
+.delete-all-btn:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
 }
 
 /* Game details panel */
 .card-body h4 {
   margin-top: 30px;
-  font-size: 1.3rem;
-  color: #343a40;
+  font-size: 1.4rem;
+  color: #212529;
+  font-weight: 600;
+  border-bottom: 2px solid #4b6cb7;
+  padding-bottom: 10px;
+  display: inline-block;
 }
 
 .card-body div {
-  margin-bottom: 8px;
-  font-size: 1rem;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.card-body strong {
+  color: #495057;
 }
 
 /* Badge link */
 .badge-warning {
   background-color: #ffc107;
-  padding: 5px 10px;
+  padding: 8px 16px;
   font-size: 0.9rem;
   color: #212529;
   text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.badge-warning:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
 }

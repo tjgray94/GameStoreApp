@@ -17,13 +17,7 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  httpOptions = {
-                  headers: new HttpHeaders({
-                    'Content-Type':'application/json'
-                  }),
-                  observe: 'response',
-                  responseType: 'text'
-                }
+  httpOptions = { headers: new HttpHeaders({'Content-Type':'application/json'}) }
 
   // getAllGames(){
   //   return Games;
