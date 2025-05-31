@@ -1,0 +1,119 @@
+/* Modern card styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: none;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Card header with gradient */
+.card-header {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
+  color: white;
+  border: none;
+  text-align: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Form styling */
+.form-group label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #4b6cb7;
+  box-shadow: 0 0 0 0.2rem rgba(75, 108, 183, 0.25);
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-image: none;
+}
+
+.invalid-feedback {
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Required field indicator */
+.required-indicator {
+  color: #dc3545;
+  margin-left: 3px;
+}
+
+/* Button styling */
+.btn {
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-primary {
+  border: 2px solid #4b6cb7;
+  color: #4b6cb7;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4b6cb7;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(75, 108, 183, 0.3);
+}
+
+/* Success message styling */
+.success-message {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
+  margin-bottom: 20px;
+}
+
+/* Form field animations */
+.form-control {
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    margin: 0 15px;
+  }
+}

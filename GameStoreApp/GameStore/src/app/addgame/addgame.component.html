@@ -1,61 +1,75 @@
 <div class="container d-flex justify-content-center align-items-center mt-5">
-  <div class="card p-4 col-sm-8 shadow">
-    <h3 class="text-center mb-4">Add New Game</h3>
-    
-    <div *ngIf="!submitted">
-      <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
-        <div class="form-group mb-3">
-          <label for="name">Name *</label>
-          <input type="text" class="form-control" id="name" formControlName="name" placeholder="e.g. The Legend of Zelda" 
-                [ngClass]="{ 'is-invalid': formSubmitted && f.name.errors }"/>
-          <div *ngIf="formSubmitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.name.errors.required">Name is required</div>
-          </div>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="image">Image Filename (with extension)</label>
-          <input type="text" class="form-control" id="image" formControlName="image" placeholder="e.g. zelda.png" />
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="price">Price *</label>
-          <input type="number" class="form-control" id="price" formControlName="price" placeholder="e.g. 49.99" step="0.01"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.price.errors }"/>
-          <div *ngIf="formSubmitted && f.price.errors" class="invalid-feedback">
-            <div *ngIf="f.price.errors.required">Price is required</div>
-            <div *ngIf="f.price.errors.min">Price must be greater than or equal to 0</div>
-          </div>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="releaseDate">Release Date *</label>
-          <input type="text" class="form-control" id="releaseDate" formControlName="releaseDate" placeholder="e.g. 11/21/1998"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.releaseDate.errors }"/>
-          <div *ngIf="formSubmitted && f.releaseDate.errors" class="invalid-feedback">
-            <div *ngIf="f.releaseDate.errors.required">Release date is required</div>
-          </div>
-        </div>
-
-        <div class="form-group mb-4">
-          <label for="rating">Rating (0-5) *</label>
-          <input type="number" class="form-control" id="rating" formControlName="rating" placeholder="e.g. 4.7" step="0.1"
-                [ngClass]="{ 'is-invalid': formSubmitted && f.rating.errors }"/>
-          <div *ngIf="formSubmitted && f.rating.errors" class="invalid-feedback">
-            <div *ngIf="f.rating.errors.min">Rating must be at least 0</div>
-            <div *ngIf="f.rating.errors.max">Rating cannot exceed 5</div>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary px-4">Submit</button>
-        </div>
-      </form>
+  <div class="card col-sm-8">
+    <div class="card-header">
+      <h3>Add New Game</h3>
     </div>
+    
+    <div class="card-body p-4">
+      <div *ngIf="!submitted">
+        <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+          <div class="form-group mb-3">
+            <label for="name">Name<span class="required-indicator">*</span></label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="e.g. The Legend of Zelda" 
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.name.errors }"/>
+            <div *ngIf="formSubmitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+          </div>
 
-    <div *ngIf="submitted" class="text-center">
-      <h5 class="text-success mb-3">Game was submitted successfully!</h5>
-      <button class="btn btn-outline-primary" (click)="newGame()">Add Another Game</button>
+          <div class="form-group mb-3">
+            <label for="image">Image Filename</label>
+            <input type="text" class="form-control" id="image" formControlName="image" placeholder="e.g. zelda.png" />
+            <small class="text-muted">Optional: Include file extension (e.g. .png, .jpg)</small>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="price">Price<span class="required-indicator">*</span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="number" class="form-control" id="price" formControlName="price" placeholder="e.g. 49.99" step="0.01"
+                    [ngClass]="{ 'is-invalid': formSubmitted && f.price.errors }"/>
+              <div *ngIf="formSubmitted && f.price.errors" class="invalid-feedback">
+                <div *ngIf="f.price.errors.required">Price is required</div>
+                <div *ngIf="f.price.errors.min">Price must be greater than or equal to 0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="releaseDate">Release Date<span class="required-indicator">*</span></label>
+            <input type="text" class="form-control" id="releaseDate" formControlName="releaseDate" placeholder="e.g. 11/21/1998"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.releaseDate.errors }"/>
+            <div *ngIf="formSubmitted && f.releaseDate.errors" class="invalid-feedback">
+              <div *ngIf="f.releaseDate.errors.required">Release date is required</div>
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="rating">Rating (0-5)<span class="required-indicator">*</span></label>
+            <input type="number" class="form-control" id="rating" formControlName="rating" placeholder="e.g. 4.7" step="0.1"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.rating.errors }"/>
+            <div *ngIf="formSubmitted && f.rating.errors" class="invalid-feedback">
+              <div *ngIf="f.rating.errors.required">Rating is required</div>
+              <div *ngIf="f.rating.errors.min">Rating must be at least 0</div>
+              <div *ngIf="f.rating.errors.max">Rating cannot exceed 5</div>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Submit Game</button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="submitted" class="text-center">
+        <div class="success-message">
+          <h5 class="mb-3">Game was submitted successfully!</h5>
+          <p>Your new game has been added to the store.</p>
+        </div>
+        <button class="btn btn-outline-primary" (click)="newGame()">Add Another Game</button>
+      </div>
     </div>
   </div>
 </div>
