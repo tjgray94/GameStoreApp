@@ -21,7 +21,8 @@ export class GameDetailComponent implements OnInit {
   gameId: number = 0;
   @Input() game!: Game;
   id!: number;
-  
+  isLoading: boolean = true;
+  hasError: boolean = false;
 
   constructor(private gameService: GameService,
               private route: ActivatedRoute,
@@ -29,10 +30,26 @@ export class GameDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['gameId'];
-    this.gameService.getGame(this.id).subscribe(data => {
-      this.game = data;
-      this.currentGame = { ...data };
-    })
+    this.isLoading = true;
+    this.hasError = false;
+    
+    this.gameService.getGame(this.id).subscribe(
+      data => {
+        if (data) {
+          this.game = data;
+          this.currentGame = { ...data };
+          this.hasError = false;
+        } else {
+          this.hasError = true;
+        }
+        this.isLoading = false;
+      },
+      error => {
+        this.hasError = true;
+        this.isLoading = false;
+        console.log(error);
+      }
+    );
   }
 
   getGame(id: number): void {

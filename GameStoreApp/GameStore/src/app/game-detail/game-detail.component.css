@@ -1,57 +1,161 @@
+/* Modern card styling */
 .game-detail-card {
   max-width: 800px;
   margin: 40px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
+/* Card header with gradient */
 .card-header {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
   color: white;
+  border: none;
   text-align: center;
-  padding: 20px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
+.card-header h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+}
+
+/* Content layout */
 .game-detail-content {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 30px;
   align-items: flex-start;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 20px;
+}
+
+/* Game image styling */
+.game-image {
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.game-image:hover {
+  transform: translateY(-5px);
 }
 
 .game-image img {
-  width: 200px;
-  max-height: 250px;
-  object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 280px;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Game info section */
 .game-info {
   flex: 1;
-  min-width: 250px;
+  min-width: 300px;
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .game-info p {
-  font-size: 1rem;
-  margin-bottom: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.game-info p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.game-info strong {
+  color: #4b6cb7;
+  font-weight: 600;
+  margin-right: 8px;
+  font-size: 1.05rem;
+}
+
+/* Rating display */
+.rating-display {
+  margin-top: 15px;
+}
+
+/* Button styling */
 .card-footer.button-group {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  padding: 15px;
+  gap: 15px;
+  padding: 20px;
   flex-wrap: wrap;
+  background-color: #f8f9fa;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .card-footer .btn {
-  min-width: 100px;
-  font-size: 0.95rem;
+  min-width: 120px;
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+  border: none;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #8e9eab 0%, #eef2f3 100%);
+  color: #333;
+  border: none;
+}
+
+.card-footer .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Error message */
+.error-message {
+  text-align: center;
+  padding: 30px;
+  color: #dc3545;
+  font-size: 1.2rem;
+}
+
+/* Loading spinner */
+.fa-spinner {
+  color: #4b6cb7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-detail-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .game-image img {
+    width: 220px;
+  }
+  
+  .game-info {
+    width: 100%;
+  }
 }

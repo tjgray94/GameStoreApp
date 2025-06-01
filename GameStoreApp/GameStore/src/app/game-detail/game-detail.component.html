@@ -1,28 +1,53 @@
 <div class="card game-detail-card">
-  <div *ngIf="game.gameId" class="card-header"><h4>Game Details</h4></div>
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="text-center p-5">
+    <i class="fa fa-spinner fa-spin fa-2x mb-3"></i>
+    <p>Loading game details...</p>
+  </div>
 
-  <div class="card-body">
-    <div class="game-detail-content">
-      <div class="game-image"><img src="assets/{{ game.image }}" /></div>
+  <!-- Game content when loaded successfully -->
+  <ng-container *ngIf="!isLoading && !hasError">
+    <div class="card-header">
+      <h4>{{ game.name }}</h4>
+    </div>
 
-      <div class="game-info">
-        <p><strong>Name: </strong>{{ game.name }}</p>
-        <p><strong>Price: </strong>{{ game.price | currency }}</p>
-        <p><strong>Release Date: </strong>{{ game.releaseDate }}</p>
-        <p><strong>Rating: </strong>{{ game.rating }}</p>
+    <div class="card-body">
+      <div class="game-detail-content">
+        <div class="game-image">
+          <img src="assets/{{ game.image }}" alt="{{ game.name }}" />
+        </div>
+
+        <div class="game-info">
+          <p><strong>Name:</strong> {{ game.name }}</p>
+          <p><strong>Price:</strong> {{ game.price | currency }}</p>
+          <p><strong>Release Date:</strong> {{ game.releaseDate | date: 'mediumDate' }}</p>
+          <p><strong>Rating:</strong> {{ game.rating }}</p>
+          <div class="rating-display">
+            <star [rating]='game.rating'></star>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="card-footer button-group">
-    <button class="btn btn-danger" (click)="deleteGame()">Delete</button>
-    <a [routerLink]="['/api/games', currentGame.gameId, 'edit']" class="btn btn-success">Update</a>
-    <button class='btn btn-secondary' (click)='onBack()'>
-      <i class='fa fa-chevron-left'></i> Back
+    <div class="card-footer button-group">
+      <button class="btn btn-danger" (click)="deleteGame()">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+      <a [routerLink]="['/api/games', currentGame.gameId, 'edit']" class="btn btn-success">
+        <i class="fa fa-pencil"></i> Edit
+      </a>
+      <button class='btn btn-secondary' (click)='onBack()'>
+        <i class='fa fa-chevron-left'></i> Back
+      </button>
+    </div>
+  </ng-container>
+  
+  <!-- Error state -->
+  <div *ngIf="!isLoading && hasError" class="error-message">
+    <i class="fa fa-exclamation-triangle fa-2x mb-3"></i>
+    <p>Cannot access this game. The game may have been removed or you don't have permission to view it.</p>
+    <button class='btn btn-secondary mt-3' (click)='onBack()'>
+      <i class='fa fa-chevron-left'></i> Back to Games
     </button>
-  </div>
-  <div *ngIf="!game.gameId">
-    <br />
-    <p>Cannot access this game...</p>
   </div>
 </div>
