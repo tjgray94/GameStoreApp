@@ -18,6 +18,7 @@ import { GameDetailGuard } from './game-detail.guard';
 import { AddgameComponent } from './addgame/addgame.component';
 import { EditComponent } from './edit/edit.component';
 import { AdduserComponent } from './adduser/adduser.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdduserComponent } from './adduser/adduser.component';
     LoginComponent,
     AddgameComponent,
     EditComponent,
-    AdduserComponent
+    AdduserComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
