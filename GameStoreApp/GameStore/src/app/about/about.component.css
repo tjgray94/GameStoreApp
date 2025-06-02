@@ -1,22 +1,111 @@
+/* Modern card styling */
 .about-container {
   max-width: 800px;
-  margin: 60px auto;
-  padding: 40px;
-  text-align: center;
-  background-color: #fefefe;
+  margin: 40px auto;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Card header with gradient */
+.about-header {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
+  color: white;
+  border: none;
+  text-align: center;
 }
 
 .about-title {
-  font-size: 2rem;
+  margin: 0;
   font-weight: 600;
-  margin-bottom: 20px;
-  color: #343a40;
+  letter-spacing: 1px;
+  font-size: 1.8rem;
+}
+
+.about-body {
+  padding: 30px;
 }
 
 .about-text {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #555;
+  color: #495057;
+  margin-bottom: 20px;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 25px 0;
+}
+
+.feature-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.feature-icon {
+  margin-right: 15px;
+  color: #4b6cb7;
+  font-size: 1.2rem;
+}
+
+.tech-section {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.tech-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-badge {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contact-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-link {
+  color: #4b6cb7;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
 }
