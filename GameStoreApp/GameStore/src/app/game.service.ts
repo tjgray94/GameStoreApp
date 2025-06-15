@@ -42,6 +42,10 @@ export class GameService {
     return this.http.get(`${baseUrl}/${gameId}`)
   }
 
+  getGamesByUserId(userId: number): Observable<any> {
+    return this.http.get(`${baseUrl}/user/${userId}`)
+  }
+
   addGame(game: Game): Observable<any> {
     const options = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(baseUrl, game, {headers: options})
