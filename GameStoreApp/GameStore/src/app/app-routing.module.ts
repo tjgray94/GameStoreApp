@@ -13,9 +13,11 @@ const routes: Routes = [
   { path: 'api/games', component: GameListComponent },
   { path: 'user/:userId/games', component: GameListComponent },
   { path: 'api/games/:gameId', component: GameDetailComponent },
+  { path: 'user/:userId/games/:gameId', component: GameDetailComponent },
   { path: 'user/home/:userId' , component: UserHomeComponent },
   { path: 'add', component: AddgameComponent},
   { path: 'api/games/:gameId/edit', component: EditComponent},
+  { path: 'user/:userId/games/:gameId/edit', component: EditComponent },
   { path: 'newUser', component: AdduserComponent},
   { path: 'login', component: LoginComponent}
 ];
