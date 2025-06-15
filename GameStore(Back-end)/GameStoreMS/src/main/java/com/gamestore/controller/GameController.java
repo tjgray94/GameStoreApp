@@ -46,11 +46,24 @@ public class GameController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
+	@GetMapping("/games/user/{userId}") // 'id' gets passed from the url to this method
+	public ResponseEntity<List<Game>> getGamesByUserId(@PathVariable("userId") int userId) {
+		try {
+			List<Game> games = gameRepository.findByUserId(userId);
+			if (games.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(games, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@PostMapping("/games")
 	public ResponseEntity<Game> createGame(@RequestBody Game game) {
 		try {
-			Game _game = gameRepository.save(new Game(game.getName(), game.getImage(), game.getPrice(), game.getReleaseDate(), game.getRating())); // persists object
+			Game _game = gameRepository.save(new Game(game.getUserId(), game.getName(), game.getImage(), game.getPrice(), game.getReleaseDate(), game.getRating())); // persists object
 			return new ResponseEntity<>(_game, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

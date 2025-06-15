@@ -24,6 +24,9 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer gameId;
 
+	@Column(name = "userId")
+	private int userId;
+
 	@Column(name = "name")
 	private String name;
 
@@ -39,8 +42,9 @@ public class Game {
 	@Column(name = "rating")
 	private double rating;
 	
-	public Game(String name, String image, double price, String releaseDate, double rating) {
+	public Game(int userId, String name, String image, double price, String releaseDate, double rating) {
 		// omit gameId since it is auto generated within the database
+		this.userId = userId;
 		this.name = name;
 		this.image = image;
 		this.price = price;
