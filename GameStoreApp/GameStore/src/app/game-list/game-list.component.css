@@ -64,10 +64,22 @@
 }
 
 /* Search box styling */
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .search-box {
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.add-game-btn {
+  white-space: nowrap;
+  min-width: 120px;
+  position: relative;
+  top: -10px;
 }
 
 .custom-search {
