@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         // Update auth state
         this.authService.login(user);
         // Navigate to user home with userId
-        this.router.navigate([`/home/user/${user.userId}`]);
+        this.router.navigate([`/user/home/${user.userId}`]);
       } else {
         // Authentication failed
         console.log('Invalid credentials');

@@ -11,8 +11,9 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: 'games', redirectTo: 'api/games', pathMatch: 'full'},
   { path: 'api/games', component: GameListComponent },
+  { path: 'user/:userId/games', component: GameListComponent },
   { path: 'api/games/:gameId', component: GameDetailComponent },
-  { path: 'home/user/:userId' , component: UserHomeComponent },
+  { path: 'user/home/:userId' , component: UserHomeComponent },
   { path: 'add', component: AddgameComponent},
   { path: 'api/games/:gameId/edit', component: EditComponent},
   { path: 'newUser', component: AdduserComponent},
