@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router, 
-              private userService: UserService) { }
+              private userService: UserService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit {
       if (user) {
         // User authenticated successfully
         console.log('Login successful for user:', user);
+        // Update auth state
+        this.authService.login(user);
         // Navigate to user home with userId
         this.router.navigate([`/home/user/${user.userId}`]);
       } else {
