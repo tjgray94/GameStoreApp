@@ -19,6 +19,7 @@ import { AddgameComponent } from './addgame/addgame.component';
 import { EditComponent } from './edit/edit.component';
 import { AdduserComponent } from './adduser/adduser.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FooterComponent } from './footer/footer.component';
     AddgameComponent,
     EditComponent,
     AdduserComponent,
-    FooterComponent
+    FooterComponent,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,
