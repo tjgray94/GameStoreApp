@@ -32,11 +32,6 @@ public class GameController {
 		return new ResponseEntity<>(gameRepository.findAll(), HttpStatus.OK);
 	}
 	
-//	@GetMapping("/games/{gameId}") // 'id' gets passed from the url to this method
-//	public Game get(@PathVariable("gameId") int gameId) {
-//		return gameRepository.getById(gameId);
-//	}
-//	
 	@GetMapping("/games/{gameId}") // 'id' gets passed from the url to this method
 	public ResponseEntity<Game> getGameById(@PathVariable("gameId") int gameId) {
 		Optional<Game> gameData = gameRepository.findById(gameId);
@@ -70,12 +65,17 @@ public class GameController {
 		}
 	}
 	
-	@PutMapping("/games/{gameId}")
-	public ResponseEntity<Game> updateGame(@PathVariable("gameId") int gameId, @RequestBody Game game) {
+	@PutMapping("/games/{userId}/{gameId}")
+	public ResponseEntity<Game> updateGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId, @RequestBody Game game) {
 		Optional<Game> gameData = gameRepository.findById(gameId);
 		
 		if (gameData.isPresent()) {
 			Game _game = gameData.get();
+
+			if (_game.getUserId() != userId) {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+
 			_game.setName(game.getName());
 			_game.setImage(game.getImage());
 			_game.setPrice(game.getPrice());
@@ -86,13 +86,16 @@ public class GameController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-//	@DeleteMapping("/{gameId}")
-//	public void delete(@PathVariable("gameId") int gameId) {
-//		gameRepository.deleteById(gameId);
-//	}
-	@DeleteMapping("/games/{gameId}")
-	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("gameId") int gameId) {
+
+	@DeleteMapping("/games/{userId}/{gameId}")
+	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
 		try {
+			Optional<Game> gameData = gameRepository.findById(gameId);
+			Game _game = gameData.get();
+			if (_game.getUserId() != userId) {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+
 			gameRepository.deleteById(gameId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
