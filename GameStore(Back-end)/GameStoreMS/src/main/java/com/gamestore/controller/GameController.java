@@ -31,7 +31,7 @@ public class GameController {
 	public ResponseEntity<List<Game>> getAllGames() {
 		return new ResponseEntity<>(gameRepository.findAll(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/games/{gameId}") // 'id' gets passed from the url to this method
 	public ResponseEntity<Game> getGameById(@PathVariable("gameId") int gameId) {
 		Optional<Game> gameData = gameRepository.findById(gameId);
