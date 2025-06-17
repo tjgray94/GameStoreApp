@@ -5,7 +5,7 @@
   
   <div class="card-body">
     <div class="nav-buttons">
-      <a routerLink="/api/games" class="btn btn-secondary">
+      <a [routerLink]="['/user', userId, 'games']" class="btn btn-secondary">
         <i class="fa fa-chevron-left"></i> Back to Games
       </a>
     </div>
