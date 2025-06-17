@@ -116,6 +116,10 @@ export class GameListComponent implements OnInit, OnDestroy {
     })
   }
   
+  goBack(): void {
+    this.router.navigate(['/user', 'home', this.id]);
+  }
+  
   delete(gameId: number) {
     // Get the userId from the route parameters
     const userId = this.route.snapshot.params['userId'];
