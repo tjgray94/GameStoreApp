@@ -13,12 +13,8 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   id!: number;
   pageTitle = 'Games';
-  imageWidth = 50;
-  imageMargin = 2;
-  showImage: boolean = false;
   errorMessage!: string;
   sub!: Subscription;
-  
   games!: Game[];
   currentGame?: Game;
   currentIndex = -1;
@@ -50,15 +46,18 @@ export class GameListComponent implements OnInit, OnDestroy {
       this.games = data;
     })
   }
+
   refreshList(): void {
     this.retrieveGames();
     this.currentGame = undefined;
     this.currentIndex = -1;
   }
+
   setActiveGame(game: Game, index: number): void {
     this.currentGame = game;
     this.currentIndex = index;
   }
+  
   removeAllGames(): void {
     this.gameService.deleteAll().subscribe(data => {
       this.refreshList();
@@ -92,28 +91,6 @@ export class GameListComponent implements OnInit, OnDestroy {
     filterBy = filterBy.toLocaleLowerCase();
     return this.games.filter((game: Game) => 
       game.name.toLocaleLowerCase().includes(filterBy));
-  }
-
-  toggleImage(): void {
-    this.showImage = !this.showImage;
-  }
-
-
-  addGame(name: string, image: string, _price: string, releaseDate: string, _rating: string): void {
-    let price = parseInt(_price)
-    let rating = parseInt(_rating)
-    this.gameService.addGame({name, image, price, releaseDate, rating}).subscribe({
-      next:(game: any) => this.games.push(game)
-    })
-  }
-
-  updateGame(id: string, name: string, image: string, _price: string, releaseDate: string, _rating: string): void {
-    let gameId = parseInt(id)
-    let price = parseInt(_price)
-    let rating = parseInt(_rating)
-    this.gameService.updateGame({gameId, name, image, price, releaseDate, rating}).subscribe({
-      next:(game: any) => this.games = game
-    })
   }
   
   goBack(): void {
