@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
+  currentUserId: number | null = null;
 
   constructor(
     private authService: AuthService,
@@ -19,6 +20,11 @@ export class NavbarComponent implements OnInit {
     // Subscribe to authentication state changes
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
+    });
+    
+    // Subscribe to current user changes
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUserId = user?.userId || null;
     });
   }
 

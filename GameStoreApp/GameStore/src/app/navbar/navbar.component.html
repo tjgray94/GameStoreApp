@@ -11,8 +11,8 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/api/games" routerLinkActive="active">
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" [routerLink]="['/user', currentUserId, 'games']" routerLinkActive="active">
             Games
           </a>
         </li>
@@ -23,10 +23,10 @@
         </li>
         <li class="nav-item">
           <a *ngIf="!isLoggedIn" class="nav-link" routerLink="/login" routerLinkActive="active">
-            <i class="fa fa-sign-in"></i> Login
+            Login
           </a>
           <a *ngIf="isLoggedIn" class="nav-link" (click)="logout()" style="cursor: pointer;">
-            <i class="fa fa-sign-out"></i> Logout
+            Logout
           </a>
         </li>
       </ul>
