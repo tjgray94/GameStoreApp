@@ -1,1 +1,43 @@
-<p>user-home works!</p>
+<div class="user-home-container">
+  <div class="welcome-header">
+    <h1 class="welcome-title">Welcome to Your GameStore</h1>
+    <p class="welcome-subtitle">Manage your game collection</p>
+  </div>
+  
+  <div class="content-section">
+    <div class="action-cards">
+      <div class="action-card">
+        <div class="card-icon">
+          <i class="fa fa-gamepad"></i>
+        </div>
+        <h3 class="card-title">Game Collection</h3>
+        <p class="card-text">View and manage all your games in one place. Add new games or update existing ones.</p>
+        <button class="btn btn-primary" (click)="viewInventory()">
+          <i class="fa fa-list"></i> View My Games
+        </button>
+      </div>
+      
+      <div class="action-card">
+        <div class="card-icon">
+          <i class="fa fa-plus-circle"></i>
+        </div>
+        <h3 class="card-title">Add New Game</h3>
+        <p class="card-text">Expand your collection by adding new games with details and ratings.</p>
+        <button class="btn btn-primary" (click)="router.navigate(['/add'])">
+          <i class="fa fa-plus"></i> Add Game
+        </button>
+      </div>
+      
+      <div class="action-card">
+        <div class="card-icon">
+          <i class="fa fa-user"></i>
+        </div>
+        <h3 class="card-title">Account Settings</h3>
+        <p class="card-text">Update your profile information and manage account preferences.</p>
+        <button class="btn btn-primary" (click)="router.navigate(['/profile'])">
+          <i class="fa fa-cog"></i> Settings
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
