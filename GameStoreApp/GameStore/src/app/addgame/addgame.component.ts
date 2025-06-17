@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Game } from '../game';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 
@@ -16,6 +15,8 @@ export class AddgameComponent implements OnInit {
   submitted = false;
   formSubmitted = false;
   userId!: number;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(private gameService: GameService,
               private fb: FormBuilder,
@@ -49,6 +50,27 @@ export class AddgameComponent implements OnInit {
       rating: ['', [Validators.required, Validators.min(0), Validators.max(5)]]
     });
   }
+  
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      this.selectedFile = file;
+      
+      // Update form control with filename
+      this.gameForm.patchValue({
+        image: file.name
+      });
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   // Getter for easy access to form fields
   get f(): { [key: string]: FormControl } {
@@ -74,10 +96,13 @@ export class AddgameComponent implements OnInit {
       return;
     }
 
+    // Use the filename from the selected file or the form value
+    const imageName = this.selectedFile ? this.selectedFile.name : this.f.image.value;
+    
     const data = {
       userId: this.userId,
       name: this.f.name.value,
-      image: this.f.image.value,
+      image: imageName,
       price: this.f.price.value, 
       releaseDate: this.f.releaseDate.value,
       rating: this.f.rating.value
@@ -93,6 +118,8 @@ export class AddgameComponent implements OnInit {
   newGame(): void {
     this.submitted = false;
     this.formSubmitted = false;
+    this.selectedFile = null;
+    this.imagePreview = null;
     this.gameForm.reset({
       name: '',
       image: '',
