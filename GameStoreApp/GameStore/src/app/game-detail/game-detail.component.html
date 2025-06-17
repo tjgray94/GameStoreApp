@@ -33,7 +33,7 @@
       <button class="btn btn-danger" (click)="deleteGame()">
         <i class="fa fa-trash"></i> Delete
       </button>
-      <a [routerLink]="['/api/games', currentGame.gameId, 'edit']" class="btn btn-success">
+      <a [routerLink]="['/user', id, 'games', currentGame.gameId, 'edit']" class="btn btn-success">
         <i class="fa fa-pencil"></i> Edit
       </a>
       <button class='btn btn-secondary' (click)='onBack()'>

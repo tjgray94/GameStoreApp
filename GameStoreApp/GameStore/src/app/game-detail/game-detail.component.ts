@@ -29,11 +29,12 @@ export class GameDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['gameId'];
+    this.gameId = this.route.snapshot.params['gameId'];
+    this.id = this.route.snapshot.params['userId'];
     this.isLoading = true;
     this.hasError = false;
     
-    this.gameService.getGame(this.id).subscribe(
+    this.gameService.getGame(this.gameId).subscribe(
       data => {
         if (data) {
           this.game = data;
@@ -63,13 +64,12 @@ export class GameDetailComponent implements OnInit {
   }
 
   deleteGame(): void {
-    this.gameService.delete(this.currentGame.gameId).subscribe(() => {
-      this.router.navigate(['/api/games']);
-    })
+    this.gameService.delete(this.id, this.gameId).subscribe(() => {
+      this.router.navigate(['/user', this.id, 'games']);
+    });
   }
 
   onBack(): void {
-    this.router.navigate(['/api/games']);
+    this.router.navigate(['/user', this.id, 'games']);
   }
-
 }
