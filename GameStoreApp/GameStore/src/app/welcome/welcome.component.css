@@ -72,6 +72,13 @@
   font-size: 0.95rem;
 }
 
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
 .cta-button {
   display: inline-block;
   background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
@@ -80,9 +87,14 @@
   padding: 12px 30px;
   border-radius: 50px;
   text-decoration: none;
-  margin-top: 20px;
   transition: all 0.3s ease;
   border: none;
+  min-width: 160px;
+}
+
+.cta-button.secondary {
+  background: transparent;
+  border: 2px solid white;
 }
 
 .cta-button:hover {
