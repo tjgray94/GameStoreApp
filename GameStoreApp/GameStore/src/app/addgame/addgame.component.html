@@ -1,7 +1,13 @@
 <div class="container d-flex justify-content-center align-items-center mt-5">
   <div class="card col-sm-8">
     <div class="card-header">
-      <h3>Add New Game</h3>
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-secondary" (click)="goBack()">
+          <i class="fa fa-chevron-left"></i> Back
+        </button>
+        <h3 class="mb-0">Add New Game</h3>
+        <div style="width: 85px;"></div> <!-- Spacer for alignment -->
+      </div>
     </div>
     
     <div class="card-body p-4">

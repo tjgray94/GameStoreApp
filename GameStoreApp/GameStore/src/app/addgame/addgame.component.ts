@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from '../game';
 import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'addgame',
@@ -13,25 +15,29 @@ export class AddgameComponent implements OnInit {
   gameForm!: FormGroup;
   submitted = false;
   formSubmitted = false;
+  userId!: number;
 
-  // We don't need this property anymore as we're using reactive forms
-  // game: Game = {
-  //   name: '',
-  //   image: '',
-  //   price: 0,
-  //   releaseDate: '',
-  //   rating: 0
-  // };
-
-  constructor(
-    private gameService: GameService,
-    private fb: FormBuilder
-  ) { 
-    this.initForm();
-  }
+  constructor(private gameService: GameService,
+              private fb: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
+              private authService: AuthService) { this.initForm(); }
 
   ngOnInit(): void {
-    // Form already initialized in constructor
+    // Get userId from route parameters
+    const routeUserId = this.route.snapshot.params['userId'];
+    
+    if (routeUserId) {
+      this.userId = routeUserId;
+    } else {
+      // Fallback to current user from auth service
+      const currentUser = this.authService.currentUser;
+      if (currentUser && currentUser.userId) {
+        this.userId = currentUser.userId;
+      } else {
+        console.error('User ID not available from route or auth service');
+      }
+    }
   }
 
   initForm(): void {
@@ -69,6 +75,7 @@ export class AddgameComponent implements OnInit {
     }
 
     const data = {
+      userId: this.userId,
       name: this.f.name.value,
       image: this.f.image.value,
       price: this.f.price.value, 
@@ -93,5 +100,9 @@ export class AddgameComponent implements OnInit {
       releaseDate: '',
       rating: ''
     });
+  }
+  
+  goBack(): void {
+    this.router.navigate(['/user', 'home', this.userId]);
   }
 }
