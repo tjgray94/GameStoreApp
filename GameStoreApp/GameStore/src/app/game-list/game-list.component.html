@@ -23,7 +23,7 @@
             </span>
           </div>
         </div>
-        <a routerLink="/add" class="btn btn-primary add-game-btn">
+        <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary add-game-btn">
           <i class="fa fa-plus"></i> Add Game
         </a>
       </div>
@@ -67,7 +67,7 @@
     <div *ngIf="!games || games.length === 0" class="no-games">
       <div class="text-center mb-4">
         <p>No games available. Add some games to get started!</p>
-        <a routerLink="/add" class="btn btn-primary">
+        <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary">
           <i class="fa fa-plus"></i> Add Game
         </a>
       </div>
