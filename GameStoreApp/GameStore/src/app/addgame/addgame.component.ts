@@ -132,4 +132,8 @@ export class AddgameComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/user', 'home', this.userId]);
   }
+  
+  viewGames(): void {
+    this.router.navigate(['/user', this.userId, 'games']);
+  }
 }

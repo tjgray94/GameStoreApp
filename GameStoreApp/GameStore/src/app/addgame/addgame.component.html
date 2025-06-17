@@ -81,7 +81,14 @@
           <h5 class="mb-3">Game was submitted successfully!</h5>
           <p>Your new game has been added to the store.</p>
         </div>
-        <button class="btn btn-outline-primary" (click)="newGame()">Add Another Game</button>
+        <div class="d-flex justify-content-center gap-3">
+          <button class="btn btn-outline-primary" (click)="newGame()">
+            <i class="fa fa-plus"></i> Add Another Game
+          </button>
+          <button class="btn btn-primary" (click)="viewGames()">
+            <i class="fa fa-list"></i> View My Games
+          </button>
+        </div>
       </div>
     </div>
   </div>
