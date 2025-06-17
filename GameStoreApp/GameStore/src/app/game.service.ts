@@ -66,8 +66,8 @@ export class GameService {
     );
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put<any>(`${baseUrl}/${id}`, data)
+  update(userId: any, gameId: any, data: any): Observable<any> {
+    return this.http.put<any>(`${baseUrl}/${userId}/${gameId}`, data)
   }
 
   deleteGame(gameId: number): Observable<any> {
@@ -76,14 +76,15 @@ export class GameService {
       catchError(this.handleError)
     )
   }
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`)
+
+  delete(userId: any, gameId: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/${userId}/${gameId}`)
   }
+
   deleteAll(): Observable<any> {
     return this.http.delete(baseUrl)
   }
   
-
   private handleError(err: HttpErrorResponse){
     let errorMessage = '';
     if (err.error instanceof ErrorEvent){
