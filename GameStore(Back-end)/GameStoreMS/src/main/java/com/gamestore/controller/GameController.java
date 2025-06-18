@@ -1,23 +1,23 @@
 package com.gamestore.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import com.gamestore.model.Game;
 import com.gamestore.repository.GameRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin("*")
 @RestController
@@ -56,15 +56,51 @@ public class GameController {
 	}
 
 	@PostMapping("/games")
-	public ResponseEntity<Game> createGame(@RequestBody Game game) {
+	public ResponseEntity<Game> createGame(@RequestParam("file") MultipartFile imageFile,
+										   @RequestParam("game") String gameJson) {
 		try {
-			Game _game = gameRepository.save(new Game(game.getUserId(), game.getName(), game.getImage(), game.getPrice(), game.getReleaseDate(), game.getRating())); // persists object
+			// Convert game JSON string to Game object
+			ObjectMapper mapper = new ObjectMapper();
+			Game game = mapper.readValue(gameJson, Game.class);
+
+			// Define the path to Angular assets folder
+			Path uploadPath = Paths.get(System.getProperty("user.dir"))
+					.resolve("../../GameStoreApp/GameStore/src/assets").normalize();
+
+			System.out.println("Resolved upload path: " + uploadPath.toAbsolutePath());
+
+			// Create directory if it doesn't exist
+			File directory = uploadPath.toFile();
+			if (!directory.exists()) {
+				directory.mkdirs();
+			}
+
+			// Save the image file
+			String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
+			Path path = uploadPath.resolve(fileName);
+			Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+			// Update the game object with the image path
+			game.setImage(fileName);
+
+			// Save game to database
+			Game _game = gameRepository.save(new Game(
+					game.getUserId(),
+					game.getName(),
+					game.getImage(),
+					game.getPrice(),
+					game.getReleaseDate(),
+					game.getRating()
+			));
+
 			return new ResponseEntity<>(_game, HttpStatus.CREATED);
+
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
+
 	@PutMapping("/games/{userId}/{gameId}")
 	public ResponseEntity<Game> updateGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId, @RequestBody Game game) {
 		Optional<Game> gameData = gameRepository.findById(gameId);
