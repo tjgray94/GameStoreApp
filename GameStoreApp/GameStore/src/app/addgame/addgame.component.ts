@@ -80,36 +80,28 @@ export class AddgameComponent implements OnInit {
   saveGame(): void {
     this.formSubmitted = true;
     
-    // Log validation status for debugging
-    console.log('Form valid:', this.gameForm.valid);
-    console.log('Form errors:', this.gameForm.errors);
-    console.log('Form value:', this.gameForm.value);
-    
-    // Stop here if form is invalid
     if (this.gameForm.invalid) {
-      console.log('Form is invalid, validation errors:', {
-        name: this.f.name.errors,
-        price: this.f.price.errors,
-        releaseDate: this.f.releaseDate.errors,
-        rating: this.f.rating.errors
-      });
       return;
     }
-
-    // Use the filename from the selected file or the form value
-    const imageName = this.selectedFile ? this.selectedFile.name : this.f.image.value;
     
     const data = {
       userId: this.userId,
       name: this.f.name.value,
-      image: imageName,
+      image: this.selectedFile?.name || this.f.image.value,
       price: this.f.price.value, 
       releaseDate: this.f.releaseDate.value,
       rating: this.f.rating.value
     };
+
+    const formData = new FormData();
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+    }
+
+    formData.append('game', JSON.stringify(data));
     
     console.log('Submitting data:', data);
-    this.gameService.create(data).subscribe(response => { 
+    this.gameService.create(formData).subscribe(response => { 
       console.log('Server response:', response); 
       this.submitted = true;
     });
