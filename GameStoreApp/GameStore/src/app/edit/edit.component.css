@@ -119,6 +119,14 @@
   margin-top: 5px;
 }
 
+/* Image preview styling */
+.img-preview {
+  max-height: 200px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .update-game-container {
