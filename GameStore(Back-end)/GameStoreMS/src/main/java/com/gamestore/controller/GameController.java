@@ -100,11 +100,13 @@ public class GameController {
 		}
 	}
 
-
 	@PutMapping("/games/{userId}/{gameId}")
-	public ResponseEntity<Game> updateGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId, @RequestBody Game game) {
+	public ResponseEntity<Game> updateGame(@PathVariable("userId") int userId,
+										   @PathVariable("gameId") int gameId,
+										   @RequestParam(value = "file", required = false) MultipartFile imageFile,
+										   @RequestParam("game") String gameJson) {
 		Optional<Game> gameData = gameRepository.findById(gameId);
-		
+
 		if (gameData.isPresent()) {
 			Game _game = gameData.get();
 
@@ -112,16 +114,47 @@ public class GameController {
 				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 			}
 
-			_game.setName(game.getName());
-			_game.setImage(game.getImage());
-			_game.setPrice(game.getPrice());
-			_game.setRating(game.getRating());
-			_game.setReleaseDate(game.getReleaseDate());
-			return new ResponseEntity<>(gameRepository.save(_game), HttpStatus.OK);
+			try {
+				// Convert game JSON string to Game object
+				ObjectMapper mapper = new ObjectMapper();
+				Game updatedGame = mapper.readValue(gameJson, Game.class);
+
+				// Update fields
+				_game.setName(updatedGame.getName());
+				_game.setPrice(updatedGame.getPrice());
+				_game.setRating(updatedGame.getRating());
+				_game.setReleaseDate(updatedGame.getReleaseDate());
+
+				// Handle image file if provided
+				if (imageFile != null && !imageFile.isEmpty()) {
+					String uploadDir = "/Users/tevingray/GameStoreHome/GameStoreApp/GameStore/src/assets/";
+					String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
+
+					// Save file
+					File directory = new File(uploadDir);
+					if (!directory.exists()) {
+						directory.mkdirs();
+					}
+
+					Path filePath = Paths.get(uploadDir + fileName);
+					Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+					// Set the image filename (not full path)
+					_game.setImage(fileName);
+
+					System.out.println("Updated image saved to: " + filePath.toAbsolutePath());
+				}
+
+				return new ResponseEntity<>(gameRepository.save(_game), HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 
 	@DeleteMapping("/games/{userId}/{gameId}")
 	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
