@@ -101,9 +101,14 @@ export class AddgameComponent implements OnInit {
     formData.append('game', JSON.stringify(data));
     
     console.log('Submitting data:', data);
-    this.gameService.create(formData).subscribe(response => { 
-      console.log('Server response:', response); 
-      this.submitted = true;
+    this.gameService.create(formData).subscribe({
+      next: (response) => { 
+        console.log('Server response:', response); 
+        this.submitted = true;
+      },
+      error: (error) => {
+        console.error('Error submitting game:', error);
+      }
     });
   }
 
