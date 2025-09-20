@@ -60,6 +60,50 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Add pagination controls here -->
+      <div class="pagination-container">
+        <div *ngIf="loading" class="text-center my-2">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && totalPages > 0" class="d-flex justify-content-between align-items-center mt-3">
+          <div class="pagination-info">
+            Showing {{ pageSize * currentPage + 1 }} to 
+            {{ pageSize * currentPage + games.length }} of {{ totalItems }} entries
+          </div>
+
+          <nav aria-label="Game list pagination">
+            <ul class="pagination mb-0">
+              <li class="page-item" [class.disabled]="currentPage === 0">
+                <button class="page-link" 
+                        (click)="previousPage()" 
+                        [disabled]="currentPage === 0"
+                        aria-label="Previous page">
+                  <i class="fa fa-chevron-left"></i>
+                </button>
+              </li>
+
+              <li class="page-item">
+                <span class="page-link">
+                  Page {{currentPage + 1}} of {{totalPages}}
+                </span>
+              </li>
+
+              <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                <button class="page-link" 
+                        (click)="nextPage()" 
+                        [disabled]="currentPage === totalPages - 1"
+                        aria-label="Next page">
+                  <i class="fa fa-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
   
       <button class="btn btn-outline-danger delete-all-btn" (click)="removeAllGames()">Delete All</button>
     </div>

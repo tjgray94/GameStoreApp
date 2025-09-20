@@ -18,6 +18,13 @@ export class GameListComponent implements OnInit, OnDestroy {
   games!: Game[];
   currentGame?: Game;
   currentIndex = -1;
+  currentPage: number = 0;
+  pageSize: number = 10;
+  totalItems: number = 0;
+  totalPages: number = 0;
+  loading: boolean = false;
+  private _listFilter: string = '';
+  filteredGames: Game[] = [];
   
   constructor(private gameService: GameService,
               private route: ActivatedRoute,
@@ -30,25 +37,51 @@ export class GameListComponent implements OnInit, OnDestroy {
     if (userId) {
       // Store userId for later use
       this.id = userId;
-      
-      // Get games for this user
-      this.gameService.getGamesByUserId(userId).subscribe((data) => {
-        this.games = data;
-        this.filteredGames = data;
-      });
+      this.loadUserGames(userId);
     } else {
       console.error('User ID not found in route parameters');
     }
   }
 
-  retrieveGames(): void {
-    this.gameService.getAll().subscribe(data => {
-      this.games = data;
-    })
+  loadUserGames(userId: number): void {
+    this.loading = true;
+    console.log(`Requesting games - userId: ${this.id}, page: ${this.currentPage}, pageSize: ${this.pageSize}`);
+
+    this.gameService.getGamesByUserId(userId, this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        console.log('Received response:', response);
+        this.games = response.games;
+        this.filteredGames = response.games;
+        this.totalItems = response.totalItems;
+        this.totalPages = response.totalPages;
+        this.currentPage = response.currentPage;
+        console.log(`Updated state - totalItems: ${this.totalItems}, totalPages: ${this.totalPages}, currentPage: ${this.currentPage}`);
+        this.loading = false;
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        this.loading = false;
+      }
+    });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadUserGames(this.id);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadUserGames(this.id);
+    }
   }
 
   refreshList(): void {
-    this.retrieveGames();
+    this.currentPage = 0; // Reset to first page
+    this.loadUserGames(this.id);
     this.currentGame = undefined;
     this.currentIndex = -1;
   }
@@ -59,33 +92,25 @@ export class GameListComponent implements OnInit, OnDestroy {
   }
   
   removeAllGames(): void {
-    this.gameService.deleteAll().subscribe(data => {
-      this.refreshList();
+    this.gameService.deleteAll().subscribe({
+      next: () => {
+        this.refreshList();
+      },
+      error: (error) => {
+        this.errorMessage = error;
+      }
     })
   }
-
-  // getAllGames(){
-  //   this.games = this.gameService.getAllGames();
-  // }
-
-  // getGames() {
-  //   this.gameService.getGames().subscribe({
-  //     next: games => this.games = games,
-  //     error: error => this.errorMessage = <any>error
-  //   })
-  // }
   
-  private _listFilter: string = '';
   get listFilter(): string {
     return this._listFilter;
   }
+
   set listFilter(value: string) {
     this._listFilter = value;
     console.log('In setter: ', value);
     this.filteredGames = this.performFilter(value);
   }
-
-  filteredGames: Game[] = [];
 
   performFilter(filterBy: string): Game[] {
     filterBy = filterBy.toLocaleLowerCase();

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -19,31 +19,16 @@ export class GameService {
 
   httpOptions = { headers: new HttpHeaders({'Content-Type':'application/json'}) }
 
-  // getAllGames(){
-  //   return Games;
-  // }
-
-  // getGames(): Observable<Game[]> {
-  //   return this.http.get<Game[]>(this._gameUrl).pipe(
-  //     tap(data => console.log('All', JSON.stringify(data))),
-  //     catchError(this.handleError)
-  //   );
-  // }
-
-  getAll(): Observable<Game[]> {
-    return this.http.get<Game[]>(baseUrl)
-    .pipe(
-      tap(data => console.log('All', data)),
-      catchError(this.handleError)
-    )
-  }
-
   getGame(gameId: number): Observable<any> {
     return this.http.get(`${baseUrl}/${gameId}`)
   }
 
-  getGamesByUserId(userId: number): Observable<any> {
-    return this.http.get(`${baseUrl}/user/${userId}`)
+  getGamesByUserId(userId: number, page: number = 0, size: number = 10): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get(`${baseUrl}/user/${userId}`, { params });
   }
 
   addGame(game: Game): Observable<any> {

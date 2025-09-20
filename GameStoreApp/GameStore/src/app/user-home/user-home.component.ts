@@ -16,19 +16,10 @@ export class UserHomeComponent implements OnInit {
   games!: Game[];
 
   constructor(private route: ActivatedRoute,
-              public router: Router, 
-              private gameService: GameService,
-              private authService: AuthService) { }
+              public router: Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['userId'];
-    this.gameService.getGamesByUserId(this.id).subscribe(data => {
-      this.games = data;
-      console.log(data);
-    },
-    error => {
-      console.log(error);
-    })
   }
 
   viewInventory() {
