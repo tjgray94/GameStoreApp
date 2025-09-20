@@ -5,11 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -28,8 +33,26 @@ public class GameController {
 	private GameRepository gameRepository;
 	
 	@GetMapping("/games")
-	public ResponseEntity<List<Game>> getAllGames() {
-		return new ResponseEntity<>(gameRepository.findAll(), HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> getAllGames(@RequestParam(defaultValue = "0") int page,
+														   @RequestParam(defaultValue = "10") int size) {
+
+		try {
+			List<Game> games;
+			Pageable paging = PageRequest.of(page, size);
+
+			Page<Game> pageGames = gameRepository.findAll(paging);
+			games = pageGames.getContent();
+
+			Map<String, Object> response = new HashMap<>();
+			response.put("games", games);
+			response.put("currentPage", pageGames.getNumber());
+			response.put("totalItems", pageGames.getTotalElements());
+			response.put("totalPages", pageGames.getTotalPages());
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/games/{gameId}") // 'id' gets passed from the url to this method
@@ -43,15 +66,28 @@ public class GameController {
 	}
 
 	@GetMapping("/games/user/{userId}") // 'id' gets passed from the url to this method
-	public ResponseEntity<List<Game>> getGamesByUserId(@PathVariable("userId") int userId) {
+	public ResponseEntity<Map<String, Object>> getGamesByUserId(
+		@PathVariable("userId") int userId,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "10") int size) {
+
+		System.out.println("Received request - userId: " + userId + ", page: " + page + ", pageSize: " + size);
+
 		try {
-			List<Game> games = gameRepository.findByUserId(userId);
-			if (games.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(games, HttpStatus.OK);
+			Pageable paging = PageRequest.of(page, size);
+			Page<Game> pageGames = gameRepository.findByUserId(userId, paging);
+
+			List<Game> games = pageGames.getContent();
+
+			Map<String, Object> response = new HashMap<>();
+			response.put("games", games);
+			response.put("currentPage", pageGames.getNumber());
+			response.put("totalItems", pageGames.getTotalElements());
+			response.put("totalPages", pageGames.getTotalPages());
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
