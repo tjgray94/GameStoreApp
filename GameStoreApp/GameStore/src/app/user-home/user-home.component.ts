@@ -25,4 +25,8 @@ export class UserHomeComponent implements OnInit {
   viewInventory() {
     this.router.navigate([`/user/${this.id}/games`]);
   }
+
+  addGame() {
+    this.router.navigate([`/user/${this.id}/games/add`]);
+  }
 }
