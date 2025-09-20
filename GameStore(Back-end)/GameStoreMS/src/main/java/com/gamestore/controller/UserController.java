@@ -3,6 +3,8 @@ package com.gamestore.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.gamestore.dto.LoginRequest;
+import com.gamestore.dto.UserResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,35 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
+
+	@PostMapping("/users/login")
+	public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+		try {
+			// Find user by email
+			Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
+
+			if (userOptional.isPresent()) {
+				User user = userOptional.get();
+
+				// Verify password (In production, use password hashing!)
+				if (user.getPassword().equals(loginRequest.getPassword())) {
+					// Create response DTO with only required fields
+					UserResponseDTO responseDTO = new UserResponseDTO(
+							user.getUserId(),
+							user.getName(),
+							user.getEmail()
+					);
+					return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+				}
+			}
+
+			return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error during login", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
