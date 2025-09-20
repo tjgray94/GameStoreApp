@@ -45,17 +45,14 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   loadUserGames(userId: number): void {
     this.loading = true;
-    console.log(`Requesting games - userId: ${this.id}, page: ${this.currentPage}, pageSize: ${this.pageSize}`);
 
     this.gameService.getGamesByUserId(userId, this.currentPage, this.pageSize).subscribe({
       next: (response) => {
-        console.log('Received response:', response);
         this.games = response.games;
         this.filteredGames = response.games;
         this.totalItems = response.totalItems;
         this.totalPages = response.totalPages;
         this.currentPage = response.currentPage;
-        console.log(`Updated state - totalItems: ${this.totalItems}, totalPages: ${this.totalPages}, currentPage: ${this.currentPage}`);
         this.loading = false;
       },
       error: (error) => {
