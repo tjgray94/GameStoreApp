@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { User } from './user';
+import { AuthUser } from './models/auth-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<AuthUser | null>(null);
   
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   currentUser$ = this.currentUserSubject.asObservable();
@@ -21,7 +21,7 @@ export class AuthService {
     }
   }
 
-  login(user: User): void {
+  login(user: AuthUser): void {
     // Store user in localStorage
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
@@ -39,7 +39,7 @@ export class AuthService {
     return this.isLoggedInSubject.value;
   }
 
-  get currentUser(): User | null {
+  get currentUser(): AuthUser | null {
     return this.currentUserSubject.value;
   }
 }

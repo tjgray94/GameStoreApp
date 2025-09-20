@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { User } from '../user';
 import { AuthService } from '../auth.service';
+import { AuthUser } from '../models/auth-user';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   email!: string;
   password!: string;
-  users!: User[];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router, 
@@ -29,26 +28,20 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  retrieveUsers(): void {
-    this.userService.getAllUsers().subscribe((data) => {
-      this.users = data;
-    })
-  }
-
   login() {
-    this.userService.getAllUsers().subscribe(users => {
-      const user = users.find(u => u.email === this.loginForm.value.email && u.password === this.loginForm.value.password);
-      
-      if (user) {
-        // User authenticated successfully
-        console.log('Login successful for user:', user);
-        // Update auth state
+    if (this.loginForm.invalid) {
+      return;
+    }
+    const credentials = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    };
+    this.userService.login(credentials).subscribe({
+      next: (user: AuthUser) => {
         this.authService.login(user);
-        // Navigate to user home with userId
         this.router.navigate([`/user/home/${user.userId}`]);
-      } else {
-        // Authentication failed
-        console.log('Invalid credentials');
+      },
+      error: () => {
         alert('Invalid email or password');
       }
     });
