@@ -10,5 +10,6 @@ import com.gamestore.model.Game;
 public interface GameRepository extends JpaRepository<Game, Integer> {
 	List<Game> findByName(String name);
 	Page<Game> findByUserId(int userId, Pageable pageable);
+	Page<Game> findByUserIdAndNameContainingIgnoreCase(int userId, String name, Pageable pageable);
 	Page<Game> findAll(Pageable pageable);
 }

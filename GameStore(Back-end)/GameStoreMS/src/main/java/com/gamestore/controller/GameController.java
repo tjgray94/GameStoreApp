@@ -69,13 +69,19 @@ public class GameController {
 	public ResponseEntity<Map<String, Object>> getGamesByUserId(
 		@PathVariable("userId") int userId,
 		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(defaultValue = "10") int size) {
-
-		System.out.println("Received request - userId: " + userId + ", page: " + page + ", pageSize: " + size);
+		@RequestParam(defaultValue = "10") int size,
+		@RequestParam(required = false) String filter) {
 
 		try {
 			Pageable paging = PageRequest.of(page, size);
 			Page<Game> pageGames = gameRepository.findByUserId(userId, paging);
+
+			if (filter != null && !filter.isEmpty()) {
+				// Assuming you want to search by game name
+				pageGames = gameRepository.findByUserIdAndNameContainingIgnoreCase(userId, filter, paging);
+			} else {
+				pageGames = gameRepository.findByUserId(userId, paging);
+			}
 
 			List<Game> games = pageGames.getContent();
 
