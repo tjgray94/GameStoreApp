@@ -33,11 +33,11 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Released</th>
-              <th>Rating</th>
-              <th>Actions</th>
+              <th style="width: 20%;">Name</th>
+              <th style="width: 15%;">Price</th>
+              <th style="width: 20%;">Released</th>
+              <th style="width: 10%;">Rating</th>
+              <th style="width: 30%;">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -49,11 +49,9 @@
                 <star [rating]='game.rating' (ratingClicked)='onRatingClicked($event)'></star>
               </td>
               <td class="actions">
-                <div style="display: flex; flex-direction: column; gap: 0.3rem; align-items: stretch;">
-                  <a routerLink="{{ game.gameId }}" class="btn btn-outline-info">View</a>
-                  <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary">Edit</a>
-                  <button type="button" (click)="delete(game.gameId!)" class="btn btn-outline-danger">Delete</button>
-                </div>
+                <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm">View</a>
+                <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary btn-sm">Edit</a>
+                <button type="button" (click)="delete(game.gameId!)" class="btn btn-outline-danger btn-sm">Delete</button>
               </td>
             </tr>
           </tbody>
