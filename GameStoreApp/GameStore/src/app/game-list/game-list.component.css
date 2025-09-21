@@ -24,6 +24,30 @@
   font-weight: 600;
 }
 
+.back-btn {
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  color: #343a40;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s, border 0.2s, color 0.2s;
+  font-size: 1.1rem;
+  padding: 0;
+}
+
+.back-btn:hover, .back-btn:focus {
+  background: #f3f4f6;
+  border-color: #b6bbc4;
+  color: #007bff;
+  text-decoration: none;
+  outline: none;
+}
+
 /* Table container for responsiveness */
 .table-container {
   width: 100%;
