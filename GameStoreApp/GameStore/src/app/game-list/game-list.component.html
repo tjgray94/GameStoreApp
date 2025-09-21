@@ -8,26 +8,27 @@
       <div style="width: 85px;"></div> <!-- Spacer for alignment -->
     </div>
   </div>
+
   <div class="card-body">
-    <div *ngIf="games && games.length > 0">
-      <div class="search-filter-container mb-4">
-        <div class="search-box">
-          <div class="input-group custom-search">
-            <span class="search-icon">
-              <i class="fa fa-search"></i>
-            </span>
-            <input type="text" class="form-control" placeholder="Search games by name..." 
-                   [(ngModel)]="filterValue" (ngModelChange)="onFilterChange($event)" />
-            <span class="clear-icon" *ngIf="filterValue" (click)="onFilterChange('')">
-              <i class="fa fa-times"></i>
-            </span>
-          </div>
+    <div class="search-filter-container mb-4">
+      <div class="search-box">
+        <div class="input-group custom-search">
+          <span class="search-icon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search games by name..." 
+                 [(ngModel)]="filterValue" (ngModelChange)="onFilterChange($event)" />
+          <span class="clear-icon" *ngIf="filterValue" (click)="onFilterChange('')">
+            <i class="fa fa-times"></i>
+          </span>
         </div>
-        <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary add-game-btn">
-          <i class="fa fa-plus"></i> Add Game
-        </a>
       </div>
-      
+      <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary add-game-btn">
+        <i class="fa fa-plus"></i> Add Game
+      </a>
+    </div>
+
+    <div *ngIf="games && games.length > 0"> 
       <div class="table-container">
         <table class="table">
           <thead>
@@ -110,10 +111,13 @@
     
     <div *ngIf="!games || games.length === 0" class="no-games">
       <div class="text-center mb-4">
-        <p>No games available. Add some games to get started!</p>
-        <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary">
-          <i class="fa fa-plus"></i> Add Game
-        </a>
+        <p *ngIf="filterValue">No games match your search.</p>
+        <ng-container *ngIf="!filterValue">
+          <p>No games available. Add some games to get started!</p>
+          <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary">
+            <i class="fa fa-plus"></i> Add Game
+          </a>
+        </ng-container>
       </div>
     </div>
   </div>
