@@ -17,8 +17,8 @@
               <i class="fa fa-search"></i>
             </span>
             <input type="text" class="form-control" placeholder="Search games by name..." 
-                   [(ngModel)]="listFilter" />
-            <span class="clear-icon" *ngIf="listFilter" (click)="listFilter=''">
+                   [(ngModel)]="filterValue" (ngModelChange)="onFilterChange($event)" />
+            <span class="clear-icon" *ngIf="filterValue" (click)="onFilterChange('')">
               <i class="fa fa-times"></i>
             </span>
           </div>
@@ -42,7 +42,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let game of filteredGames; let i = index" [class.active]="i == currentIndex" (click)="setActiveGame(game, i)">
+            <tr *ngFor="let game of games; let i = index" [class.active]="i == currentIndex" (click)="setActiveGame(game, i)">
               <td>{{ game.gameId }}</td>
               <td>{{ game.name }}</td>
               <td><img class="game-image" src="assets/{{ game.image }}" alt="{{ game.name }}"></td>
@@ -61,7 +61,7 @@
         </table>
       </div>
 
-      <!-- Add pagination controls here -->
+      <!-- Pagination controls -->
       <div class="pagination-container">
         <div *ngIf="loading" class="text-center my-2">
           <div class="spinner-border text-primary" role="status">

@@ -23,8 +23,7 @@ export class GameListComponent implements OnInit, OnDestroy {
   totalItems: number = 0;
   totalPages: number = 0;
   loading: boolean = false;
-  private _listFilter: string = '';
-  filteredGames: Game[] = [];
+  filterValue: string = '';
   
   constructor(private gameService: GameService,
               private route: ActivatedRoute,
@@ -46,10 +45,10 @@ export class GameListComponent implements OnInit, OnDestroy {
   loadUserGames(userId: number): void {
     this.loading = true;
 
-    this.gameService.getGamesByUserId(userId, this.currentPage, this.pageSize).subscribe({
+    this.gameService.getGamesByUserId(userId, this.currentPage, this.pageSize, this.filterValue)
+    .subscribe({
       next: (response) => {
         this.games = response.games;
-        this.filteredGames = response.games;
         this.totalItems = response.totalItems;
         this.totalPages = response.totalPages;
         this.currentPage = response.currentPage;
@@ -83,6 +82,12 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.currentIndex = -1;
   }
 
+  onFilterChange(value: string): void {
+    this.filterValue = value;
+    this.currentPage = 0; // Reset to first page when filter changes
+    this.loadUserGames(this.id);
+  }
+
   setActiveGame(game: Game, index: number): void {
     this.currentGame = game;
     this.currentIndex = index;
@@ -97,22 +102,6 @@ export class GameListComponent implements OnInit, OnDestroy {
         this.errorMessage = error;
       }
     })
-  }
-  
-  get listFilter(): string {
-    return this._listFilter;
-  }
-
-  set listFilter(value: string) {
-    this._listFilter = value;
-    console.log('In setter: ', value);
-    this.filteredGames = this.performFilter(value);
-  }
-
-  performFilter(filterBy: string): Game[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.games.filter((game: Game) => 
-      game.name.toLocaleLowerCase().includes(filterBy));
   }
   
   goBack(): void {
@@ -131,8 +120,6 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.gameService.delete(userId, gameId).subscribe(res => {
       // Remove the deleted game from the games array
       this.games = this.games.filter(game => game.gameId !== gameId);
-      // Update filtered games as well
-      this.filteredGames = this.filteredGames.filter(game => game.gameId !== gameId);
       
       // Reset current game if it was the deleted one
       if (this.currentGame && this.currentGame.gameId === gameId) {
