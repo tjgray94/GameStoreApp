@@ -10,8 +10,8 @@
   </div>
 
   <div class="card-body">
-    <div class="search-filter-container mb-4">
-      <div class="search-box">
+    <div class="search-filter-container mb-4 d-flex align-items-center justify-content-between flex-wrap">
+      <div class="search-box flex-grow-1">
         <div class="input-group custom-search">
           <span class="search-icon">
             <i class="fa fa-search"></i>
@@ -23,8 +23,8 @@
           </span>
         </div>
       </div>
-      <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary add-game-btn">
-        <i class="fa fa-plus"></i> Add Game
+      <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-add-game shadow-sm">
+        <i class="fa fa-plus me-2"></i> Add Game
       </a>
     </div>
 
