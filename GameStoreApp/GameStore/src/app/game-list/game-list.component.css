@@ -120,25 +120,11 @@
   flex-wrap: wrap;
 }
 
-.custom-search {
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 50px;
-}
-
 .search-box .form-control {
   height: 50px;
   box-sizing: border-box;
   align-items: center;
   display: flex;
-}
-.btn-add-game {
-  height: 50px;
-  box-sizing: border-box;
-  align-items: center;
-  display: flex;
-  position: relative;
-  top: -12px;
 }
 
 .search-box .form-control:focus {
@@ -146,13 +132,31 @@
   border-color: #4b6cb7;
 }
 
-.search-icon {
+.custom-search {
+  position: relative;
+}
+
+.custom-search .search-icon {
   position: absolute;
-  left: 15px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 2;
   color: #6c757d;
+  pointer-events: none;
+}
+
+.custom-search .form-control {
+  padding-left: 2.2em; /* Adjust to fit icon size */
+}
+
+.btn-add-game {
+  height: 50px;
+  box-sizing: border-box;
+  align-items: center;
+  display: flex;
+  position: relative;
+  top: -12px;
 }
 
 .clear-icon {
