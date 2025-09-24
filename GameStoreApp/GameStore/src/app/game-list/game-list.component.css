@@ -118,6 +118,7 @@
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
+  margin-bottom: -16px !important;
 }
 
 .search-box .form-control {
