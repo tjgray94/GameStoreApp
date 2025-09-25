@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "games")
 @Getter
@@ -37,12 +39,12 @@ public class Game {
 	private double price;
 
 	@Column(name = "releasedate")
-	private String releaseDate;
+	private LocalDate releaseDate;
 
 	@Column(name = "rating")
 	private double rating;
 	
-	public Game(int userId, String name, String image, double price, String releaseDate, double rating) {
+	public Game(int userId, String name, String image, double price, LocalDate releaseDate, double rating) {
 		// omit gameId since it is auto generated within the database
 		this.userId = userId;
 		this.name = name;

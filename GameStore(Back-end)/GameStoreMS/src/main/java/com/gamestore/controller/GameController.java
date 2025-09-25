@@ -67,13 +67,12 @@ public class GameController {
 	}
 
 	@GetMapping("/games/user/{userId}") // 'id' gets passed from the url to this method
-	public ResponseEntity<Map<String, Object>> getGamesByUserId(
-		@PathVariable("userId") int userId,
-		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(defaultValue = "10") int size,
-		@RequestParam(required = false) String filter,
-		@RequestParam(defaultValue = "id") String sortBy,
-		@RequestParam(defaultValue = "asc") String sortDirection) {
+	public ResponseEntity<Map<String, Object>> getGamesByUserId(@PathVariable("userId") int userId,
+																@RequestParam(defaultValue = "0") int page,
+																@RequestParam(defaultValue = "10") int size,
+																@RequestParam(required = false) String filter,
+																@RequestParam(defaultValue = "id") String sortBy,
+																@RequestParam(defaultValue = "asc") String sortDirection) {
 
 		try {
 			Sort sort = sortDirection.equalsIgnoreCase("desc") ?
@@ -206,7 +205,9 @@ public class GameController {
 
 
 	@DeleteMapping("/games/{userId}/{gameId}")
-	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("userId") int userId, @PathVariable("gameId") int gameId) {
+	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("userId") int userId,
+												 @PathVariable("gameId") int gameId) {
+
 		try {
 			Optional<Game> gameData = gameRepository.findById(gameId);
 			Game _game = gameData.get();
