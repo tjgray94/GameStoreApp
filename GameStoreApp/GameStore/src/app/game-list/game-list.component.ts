@@ -27,7 +27,7 @@ export class GameListComponent implements OnInit, OnDestroy {
   filterValue: string = '';
 
   sortState: SortState = {
-    column: 'gameId',
+    column: 'gameId', // determines what to default sort by
     direction: 'asc'
   };
   
