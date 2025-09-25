@@ -73,7 +73,7 @@
                   (keydown.space)="onSort('rating'); $event.preventDefault()">
                 Rating {{ getSortIcon('rating') }}
               </th>
-              <th style="width: 30%;">Actions</th>
+              <th style="width: 25%;">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -85,9 +85,15 @@
                 <star [rating]='game.rating' (ratingClicked)='onRatingClicked($event)'></star>
               </td>
               <td class="actions">
-                <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm">View</a>
-                <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary btn-sm">Edit</a>
-                <button type="button" (click)="delete(game.gameId!)" class="btn btn-outline-danger btn-sm">Delete</button>
+                <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm" title="View">
+                  <i class="fa fa-eye"></i>
+                </a>
+                <a routerLink='{{ game.gameId }}/edit' class="btn btn-outline-primary btn-sm" title="Edit">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <button type="button" (click)="delete(game.gameId!)" class="btn btn-outline-danger btn-sm" title="Delete">
+                  <i class="fa fa-trash"></i>
+                </button>
               </td>
             </tr>
           </tbody>
