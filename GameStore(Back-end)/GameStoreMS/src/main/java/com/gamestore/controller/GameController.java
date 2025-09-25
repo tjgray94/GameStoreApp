@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -70,10 +71,16 @@ public class GameController {
 		@PathVariable("userId") int userId,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size,
-		@RequestParam(required = false) String filter) {
+		@RequestParam(required = false) String filter,
+		@RequestParam(defaultValue = "id") String sortBy,
+		@RequestParam(defaultValue = "asc") String sortDirection) {
 
 		try {
-			Pageable paging = PageRequest.of(page, size);
+			Sort sort = sortDirection.equalsIgnoreCase("desc") ?
+					Sort.by(sortBy).descending() :
+					Sort.by(sortBy).ascending();
+
+			Pageable paging = PageRequest.of(page, size, sort);
 			Page<Game> pageGames = gameRepository.findByUserId(userId, paging);
 
 			if (filter != null && !filter.isEmpty()) {
