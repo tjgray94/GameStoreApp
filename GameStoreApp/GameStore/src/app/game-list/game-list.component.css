@@ -105,13 +105,6 @@
   letter-spacing: 1px;
 }
 
-/* Rating column width adjustment */
-.table th:nth-child(4),
-.table td:nth-child(4) {
-  min-width: 90px;
-  width: 90px;
-}
-
 /* Search box styling */
 .search-filter-container {
   display: flex;
@@ -174,15 +167,6 @@
 .sortable:focus {
   outline: 2px solid #007bff;
   outline-offset: -2px;
-}
-
-.sortable::after {
-  content: '⇵';
-  opacity: 0.3;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .sortable:hover::after {
@@ -397,5 +381,16 @@ td.actions .btn {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.col-name    { width: 28%; }
+.col-price   { width: 14%; }
+.col-release { width: 16%; }
+.col-rating  { width: 12%; }
+.col-actions { width: 20%; }
+.table td, .table th {
+  vertical-align: middle;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 

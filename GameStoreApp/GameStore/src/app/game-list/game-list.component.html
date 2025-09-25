@@ -30,11 +30,10 @@
 
     <div *ngIf="games && games.length > 0"> 
       <div class="table-container">
-        <table class="table">
+        <table class="table align-middle">
           <thead>
             <tr>
-              <th style="width: 30%;"
-                  class="sortable"
+              <th class="sortable col-name"
                   (click)="onSort('name')"
                   [attr.aria-sort]="sortState.column === 'name' ? sortState.direction : 'none'"
                   role="columnheader"
@@ -43,8 +42,7 @@
                   (keydown.space)="onSort('name'); $event.preventDefault()">
                 Name {{ getSortIcon('name') }}
               </th>
-              <th style="width: 10%;"
-                  class="sortable"
+              <th class="sortable col-price"
                   (click)="onSort('price')"
                   [attr.aria-sort]="sortState.column === 'price' ? sortState.direction : 'none'"
                   role="columnheader"
@@ -53,8 +51,7 @@
                   (keydown.space)="onSort('price'); $event.preventDefault()">
                 Price {{ getSortIcon('price') }}
               </th>
-              <th style="width: 15%;"
-                  class="sortable"
+              <th class="sortable col-release"
                   (click)="onSort('releaseDate')"
                   [attr.aria-sort]="sortState.column === 'releaseDate' ? sortState.direction : 'none'"
                   role="columnheader"
@@ -63,8 +60,7 @@
                   (keydown.space)="onSort('releaseDate'); $event.preventDefault()">
                 Released {{ getSortIcon('releaseDate') }}
               </th>
-              <th style="width: 10%;"
-                  class="sortable"
+              <th class="sortable col-rating text-center"
                   (click)="onSort('rating')"
                   [attr.aria-sort]="sortState.column === 'rating' ? sortState.direction : 'none'"
                   role="columnheader"
@@ -73,18 +69,18 @@
                   (keydown.space)="onSort('rating'); $event.preventDefault()">
                 Rating {{ getSortIcon('rating') }}
               </th>
-              <th style="width: 25%;">Actions</th>
+              <th class="col-actions text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let game of games; let i = index" [class.active]="i == currentIndex" (click)="setActiveGame(game, i)">
-              <td>{{ game.name }}</td>
-              <td>{{ game.price | currency }}</td>
-              <td>{{ game.releaseDate | date: 'shortDate' }}</td>
-              <td>
+              <td class="py-2">{{ game.name }}</td>
+              <td class="py-2">{{ game.price | currency }}</td>
+              <td class="py-2">{{ game.releaseDate | date: 'shortDate' }}</td>
+              <td class="py-2 text-center">
                 <star [rating]='game.rating' (ratingClicked)='onRatingClicked($event)'></star>
               </td>
-              <td class="actions">
+              <td class="actions py-2 text-center">
                 <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm" title="View">
                   <i class="fa fa-eye"></i>
                 </a>
