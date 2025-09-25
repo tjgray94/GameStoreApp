@@ -33,10 +33,46 @@
         <table class="table">
           <thead>
             <tr>
-              <th style="width: 20%;">Name</th>
-              <th style="width: 15%;">Price</th>
-              <th style="width: 20%;">Released</th>
-              <th style="width: 10%;">Rating</th>
+              <th style="width: 30%;"
+                  class="sortable"
+                  (click)="onSort('name')"
+                  [attr.aria-sort]="sortState.column === 'name' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('name')"
+                  (keydown.space)="onSort('name'); $event.preventDefault()">
+                Name {{ getSortIcon('name') }}
+              </th>
+              <th style="width: 10%;"
+                  class="sortable"
+                  (click)="onSort('price')"
+                  [attr.aria-sort]="sortState.column === 'price' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('price')"
+                  (keydown.space)="onSort('price'); $event.preventDefault()">
+                Price {{ getSortIcon('price') }}
+              </th>
+              <th style="width: 15%;"
+                  class="sortable"
+                  (click)="onSort('releaseDate')"
+                  [attr.aria-sort]="sortState.column === 'releaseDate' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('releaseDate')"
+                  (keydown.space)="onSort('releaseDate'); $event.preventDefault()">
+                Released {{ getSortIcon('releaseDate') }}
+              </th>
+              <th style="width: 10%;"
+                  class="sortable"
+                  (click)="onSort('rating')"
+                  [attr.aria-sort]="sortState.column === 'rating' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('rating')"
+                  (keydown.space)="onSort('rating'); $event.preventDefault()">
+                Rating {{ getSortIcon('rating') }}
+              </th>
               <th style="width: 30%;">Actions</th>
             </tr>
           </thead>

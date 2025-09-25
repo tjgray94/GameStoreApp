@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Game } from '../game';
 import { GameService } from '../game.service';
+import { SortState } from '../sortState';
 
 @Component({
   selector: 'game-list',
@@ -24,6 +25,11 @@ export class GameListComponent implements OnInit, OnDestroy {
   totalPages: number = 0;
   loading: boolean = false;
   filterValue: string = '';
+
+  sortState: SortState = {
+    column: 'gameId',
+    direction: 'asc'
+  };
   
   constructor(private gameService: GameService,
               private route: ActivatedRoute,
@@ -45,7 +51,14 @@ export class GameListComponent implements OnInit, OnDestroy {
   loadUserGames(userId: number): void {
     this.loading = true;
 
-    this.gameService.getGamesByUserId(userId, this.currentPage, this.pageSize, this.filterValue)
+    this.gameService.getGamesByUserId(
+      userId,
+      this.currentPage,
+      this.pageSize,
+      this.filterValue,
+      this.sortState.column,
+      this.sortState.direction
+    )
     .subscribe({
       next: (response) => {
         this.games = response.games;
@@ -59,6 +72,25 @@ export class GameListComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     });
+  }
+
+  onSort(column: string): void {
+    if (this.sortState.column === column) {
+      // Toggle direction if same column is clicked
+      this.sortState.direction = this.sortState.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      // Set new column and default to ascending
+      this.sortState.column = column;
+      this.sortState.direction = 'asc';
+    }
+    this.loadUserGames(this.id);
+  }
+
+  getSortIcon(column: string): string {
+    if (this.sortState.column === column) {
+      return this.sortState.direction === 'asc' ? '↑' : '↓';
+    }
+    return '';
   }
 
   nextPage(): void {

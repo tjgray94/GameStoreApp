@@ -160,6 +160,43 @@
   top: -12px;
 }
 
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 20px;
+}
+
+.sortable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sortable:focus {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+.sortable::after {
+  content: '⇵';
+  opacity: 0.3;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sortable:hover::after {
+  opacity: 1;
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.actions .btn {
+  margin-right: 5px;
+}
+
 .clear-icon {
   position: absolute;
   right: 15px;

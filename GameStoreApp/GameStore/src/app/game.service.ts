@@ -23,10 +23,19 @@ export class GameService {
     return this.http.get(`${baseUrl}/${gameId}`)
   }
 
-  getGamesByUserId(userId: number, page: number = 0, size: number = 10, filter?: string): Observable<any> {
+  getGamesByUserId(
+    userId: number,
+    page: number = 0,
+    size: number = 10,
+    filter?: string,
+    sortBy: string = 'id',
+    sortDirection: string = 'asc'
+  ): Observable<any> {
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('size', size.toString());
+      .set('size', size.toString())
+      .set('sortBy', sortBy)
+      .set('sortDirection', sortDirection);
 
     if (filter) {
       params = params.set('filter', filter);
