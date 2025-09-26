@@ -105,6 +105,22 @@
   letter-spacing: 1px;
 }
 
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+th.sortable .sort-icon {
+  margin-left: 6px;
+  font-size: 0.9em;
+  color: #888;
+}
+
+th.sortable[aria-sort="asc"],
+th.sortable[aria-sort="desc"] {
+  background-color: #f5f5f5;
+}
+
 /* Search box styling */
 .search-filter-container {
   display: flex;

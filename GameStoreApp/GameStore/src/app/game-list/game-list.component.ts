@@ -86,13 +86,6 @@ export class GameListComponent implements OnInit, OnDestroy {
     this.loadUserGames(this.id);
   }
 
-  getSortIcon(column: string): string {
-    if (this.sortState.column === column) {
-      return this.sortState.direction === 'asc' ? '↑' : '↓';
-    }
-    return '';
-  }
-
   nextPage(): void {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;

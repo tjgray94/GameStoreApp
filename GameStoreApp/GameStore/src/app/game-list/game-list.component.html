@@ -40,7 +40,12 @@
                   tabindex="0"
                   (keydown.enter)="onSort('name')"
                   (keydown.space)="onSort('name'); $event.preventDefault()">
-                Name {{ getSortIcon('name') }}
+                Name
+                <span class="sort-icon">
+                  <i *ngIf="sortState.column !== 'name'" class="fa fa-sort"></i>
+                  <i *ngIf="sortState.column === 'name' && sortState.direction === 'asc'" class="fa fa-sort-up"></i>
+                  <i *ngIf="sortState.column === 'name' && sortState.direction === 'desc'" class="fa fa-sort-down"></i>
+                </span>
               </th>
               <th class="sortable col-price"
                   (click)="onSort('price')"
@@ -49,7 +54,12 @@
                   tabindex="0"
                   (keydown.enter)="onSort('price')"
                   (keydown.space)="onSort('price'); $event.preventDefault()">
-                Price {{ getSortIcon('price') }}
+                Price
+                <span class="sort-icon">
+                  <i *ngIf="sortState.column !== 'price'" class="fa fa-sort"></i>
+                  <i *ngIf="sortState.column === 'price' && sortState.direction === 'asc'" class="fa fa-sort-up"></i>
+                  <i *ngIf="sortState.column === 'price' && sortState.direction === 'desc'" class="fa fa-sort-down"></i>
+                </span>
               </th>
               <th class="sortable col-release"
                   (click)="onSort('releaseDate')"
@@ -58,7 +68,12 @@
                   tabindex="0"
                   (keydown.enter)="onSort('releaseDate')"
                   (keydown.space)="onSort('releaseDate'); $event.preventDefault()">
-                Released {{ getSortIcon('releaseDate') }}
+                Released
+                <span class="sort-icon">
+                  <i *ngIf="sortState.column !== 'releaseDate'" class="fa fa-sort"></i>
+                  <i *ngIf="sortState.column === 'releaseDate' && sortState.direction === 'asc'" class="fa fa-sort-up"></i>
+                  <i *ngIf="sortState.column === 'releaseDate' && sortState.direction === 'desc'" class="fa fa-sort-down"></i>
+                </span>
               </th>
               <th class="sortable col-rating text-center"
                   (click)="onSort('rating')"
@@ -67,7 +82,12 @@
                   tabindex="0"
                   (keydown.enter)="onSort('rating')"
                   (keydown.space)="onSort('rating'); $event.preventDefault()">
-                Rating {{ getSortIcon('rating') }}
+                Rating
+                <span class="sort-icon">
+                  <i *ngIf="sortState.column !== 'rating'" class="fa fa-sort"></i>
+                  <i *ngIf="sortState.column === 'rating' && sortState.direction === 'asc'" class="fa fa-sort-up"></i>
+                  <i *ngIf="sortState.column === 'rating' && sortState.direction === 'desc'" class="fa fa-sort-down"></i>
+                </span>
               </th>
               <th class="col-actions text-center">Actions</th>
             </tr>
