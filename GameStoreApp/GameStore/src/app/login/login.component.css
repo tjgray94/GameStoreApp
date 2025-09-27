@@ -9,6 +9,8 @@
   border: none;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  width: 100%;
+  max-width: 450px;
 }
 
 .card-header {
@@ -16,6 +18,7 @@
   padding: 25px;
   color: white;
   border: none;
+  text-align: center;
 }
 
 .card-header h4 {
@@ -23,53 +26,4 @@
   font-weight: 600;
   letter-spacing: 1px;
   font-size: 1.6rem;
-}
-
-.form-control {
-  height: 50px;
-  border-radius: 8px;
-  padding: 12px;
-  border: 1px solid #ced4da;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.form-control:focus {
-  border-color: #4b6cb7;
-  box-shadow: 0 0 0 0.2rem rgba(75, 108, 183, 0.25);
-  transform: translateY(-2px);
-}
-
-.btn {
-  border-radius: 50px;
-  padding: 12px 30px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
-  border: none;
-}
-
-.btn-outline-secondary {
-  border: 2px solid #6c757d;
-  color: #6c757d;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.form-check-label {
-  font-weight: 400;
-  font-size: 0.95rem;
-}
-
-.form-text {
-  color: #6c757d;
-  font-size: 0.85rem;
 }
