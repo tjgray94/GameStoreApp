@@ -4,11 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { StarComponent } from './star/star.component';
-import { HttpClientModule } from '@angular/common/http'
 import { GameService } from './game.service';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -20,6 +26,7 @@ import { EditComponent } from './edit/edit.component';
 import { AdduserComponent } from './adduser/adduser.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -43,6 +50,12 @@ import { UserHomeComponent } from './user-home/user-home.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatNativeDateModule,
     RouterModule.forRoot([
       { path: 'games', component: GameListComponent },
       { path: 'games/:id', canActivate: [GameDetailGuard], component: GameDetailComponent },
@@ -50,7 +63,8 @@ import { UserHomeComponent } from './user-home/user-home.component';
       { path: 'about', component: AboutComponent },
       { path: 'login', component: LoginComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full'}
-    ])
+    ]),
+    NoopAnimationsModule
   ],
   providers: [GameService],
   bootstrap: [AppComponent]

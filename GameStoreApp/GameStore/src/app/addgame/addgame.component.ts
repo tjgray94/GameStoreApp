@@ -16,6 +16,7 @@ export class AddgameComponent implements OnInit {
   formSubmitted = false;
   userId!: number;
   selectedFile: File | null = null;
+  imageFileName: string = '';
   imagePreview: string | ArrayBuffer | null = null;
 
   constructor(private gameService: GameService,
@@ -57,6 +58,7 @@ export class AddgameComponent implements OnInit {
     if (input.files && input.files.length) {
       const file = input.files[0];
       this.selectedFile = file;
+      this.imageFileName = file.name;
       
       // Update form control with filename
       this.gameForm.patchValue({
@@ -75,6 +77,10 @@ export class AddgameComponent implements OnInit {
   // Getter for easy access to form fields
   get f(): { [key: string]: FormControl } {
     return this.gameForm.controls as { [key: string]: FormControl };
+  }
+
+  preventInput(event: KeyboardEvent) {
+    event.preventDefault();
   }
 
   saveGame(): void {
