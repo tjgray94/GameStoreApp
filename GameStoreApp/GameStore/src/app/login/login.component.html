@@ -6,50 +6,35 @@
     
     <div class="card-body p-4">
       <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <div class="mb-4">
-          <label for="email" class="form-label">Email</label>
-          <input 
-            type="text" 
-            id="email"
-            formControlName="email" 
-            class="form-control" 
-            placeholder="Enter your email" 
-            required 
-            [ngClass]="{'is-invalid': loginForm.controls.email.invalid && loginForm.controls.email.touched}" 
-          />
-          <div class="invalid-feedback" *ngIf="loginForm.controls.email.dirty && loginForm.hasError('required', 'email')">
+
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" id="email" formControlName="email" />
+          <mat-error *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
             Email is required
-          </div>
-        </div>
+          </mat-error>
+        </mat-form-field>
 
-        <div class="mb-4">
-          <label for="password" class="form-label">Password</label>
-          <input 
-            type="password" 
-            id="password"
-            formControlName="password" 
-            class="form-control" 
-            placeholder="Enter your password" 
-            required 
-            [ngClass]="{'is-invalid': loginForm.controls.password.invalid && loginForm.controls.password.touched}" 
-          />
-          <div class="invalid-feedback" *ngIf="loginForm.controls.password.dirty && loginForm.hasError('required', 'password')">
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" id="password" formControlName="password" />
+          <mat-error *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
             Password is required
-          </div>
-          <small class="form-text">Must be 8-20 characters long.</small>
-        </div>
+          </mat-error>
+        </mat-form-field>
 
-        <div class="mb-4 form-check">
-          <input type="checkbox" class="form-check-input" id="rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember Me</label>
-        </div>
+        <!-- Remember Me Checkbox -->
+        <mat-checkbox id="rememberMe">Remember Me</mat-checkbox>
 
-        <div class="d-grid gap-3 mt-4">
-          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">
-            <i class="fa fa-sign-in"></i> Login
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center mt-4" style="gap: 24px;">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+            <mat-icon>login</mat-icon> Login
           </button>
-          <a routerLink="/newUser" class="btn btn-outline-secondary">
-            <i class="fa fa-user-plus"></i> Create Account
+          <a mat-stroked-button color="secondary" routerLink="/newUser">
+            <mat-icon>person_add</mat-icon> Create Account
           </a>
         </div>
       </form>
