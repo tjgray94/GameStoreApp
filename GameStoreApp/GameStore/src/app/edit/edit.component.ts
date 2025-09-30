@@ -90,11 +90,21 @@ export class EditComponent implements OnInit {
     }
   }
 
-  submit(){
+  formatDate(date: any): string {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toISOString().split('T')[0]; // "yyyy-MM-dd"
+  }
+
+  submit() {
     const gameData = this.game;
-    
-    // Create FormData for file upload
+
+    if (gameData && gameData.releaseDate) {
+      gameData.releaseDate = this.formatDate(gameData.releaseDate);
+    }
+
     const formData = new FormData();
+
     if (this.selectedFile) {
       formData.append('file', this.selectedFile);
     }
@@ -102,8 +112,12 @@ export class EditComponent implements OnInit {
     formData.append('game', JSON.stringify(gameData));
     
     console.log('Submitting updated data:', gameData);
-    this.gameService.update(this.userId, this.id, formData).subscribe(res => {
-      this.router.navigate(['/user', this.userId, 'games']);
+    this.gameService.update(this.userId, this.id, formData).subscribe({
+      next: res => this.router.navigate(['/user', this.userId, 'games']),
+      error: err => {
+        console.error('Update failed:', err);
+        alert('Update failed. Please check your input and try again.');
+      }
     });
   }
 }
