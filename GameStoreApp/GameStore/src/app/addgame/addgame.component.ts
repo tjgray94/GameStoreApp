@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 
@@ -21,6 +22,7 @@ export class AddgameComponent implements OnInit {
 
   constructor(private gameService: GameService,
               private fb: FormBuilder,
+              private location: Location,
               private route: ActivatedRoute,
               private router: Router,
               private authService: AuthService) { this.initForm(); }
@@ -133,7 +135,7 @@ export class AddgameComponent implements OnInit {
   }
   
   goBack(): void {
-    this.router.navigate(['/user', 'home', this.userId]);
+    this.location.back();
   }
   
   viewGames(): void {
