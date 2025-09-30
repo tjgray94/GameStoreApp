@@ -91,13 +91,19 @@ export class AddgameComponent implements OnInit {
     if (this.gameForm.invalid) {
       return;
     }
+
+    // Format releaseDate to "yyyy-MM-dd"
+    let releaseDate = this.f.releaseDate.value;
+    if (releaseDate instanceof Date) {
+      releaseDate = releaseDate.toISOString().split('T')[0];
+    }
     
     const data = {
       userId: this.userId,
       name: this.f.name.value,
       image: this.selectedFile?.name || this.f.image.value,
       price: this.f.price.value, 
-      releaseDate: this.f.releaseDate.value,
+      releaseDate: releaseDate,
       rating: this.f.rating.value
     };
 
