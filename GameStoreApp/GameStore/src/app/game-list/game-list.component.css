@@ -160,6 +160,10 @@ th.sortable[aria-sort="desc"] {
   padding-left: 2.2em; /* Adjust to fit icon size */
 }
 
+.grow {
+  flex-grow: 1 !important;
+}
+
 .btn-add-game {
   height: 50px;
   box-sizing: border-box;
