@@ -10,7 +10,7 @@
   </div>
 
   <div class="card-body">
-    <div class="search-filter-container d-flex align-items-center justify-content-between flex-wrap">
+    <div class="search-filter-container d-flex align-items-center justify-content-between flex-wrap pb-4">
       <div class="search-box flex-grow-1">
         <div class="input-group custom-search">
           <span class="search-icon">
@@ -163,14 +163,11 @@
       <button class="btn btn-outline-danger delete-all-btn" (click)="removeAllGames()">Delete All</button>
     </div>
     
-    <div *ngIf="!games || games.length === 0" class="no-games">
+    <div *ngIf="!games || games.length === 0">
       <div class="text-center mb-4">
         <p *ngIf="filterValue">No games match your search.</p>
         <ng-container *ngIf="!filterValue">
           <p>No games available. Add some games to get started!</p>
-          <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-primary">
-            <i class="fa fa-plus"></i> Add Game
-          </a>
         </ng-container>
       </div>
     </div>

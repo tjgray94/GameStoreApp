@@ -134,7 +134,6 @@ export class GameListComponent implements OnInit, OnDestroy {
   }
   
   delete(gameId: number) {
-    // Get the userId from the route parameters
     const userId = this.route.snapshot.params['userId'];
     
     if (!userId) {
@@ -151,6 +150,14 @@ export class GameListComponent implements OnInit, OnDestroy {
         this.currentGame = undefined;
         this.currentIndex = -1;
       }
+
+      // If no games left on current page, go back one page
+      if (this.games.length === 0 && this.currentPage > 0) {
+        this.currentPage--;
+      }
+
+      // Reload games for the current page
+      this.loadUserGames(this.id);
     });
   }
 
