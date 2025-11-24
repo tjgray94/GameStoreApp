@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +30,7 @@ import { AdduserComponent } from './adduser/adduser.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginErrorDialogComponent } from './login-error-dialog/login-error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     EditComponent,
     AdduserComponent,
     FooterComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    LoginErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

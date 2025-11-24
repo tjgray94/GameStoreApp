@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
 import { AuthUser } from '../models/auth-user';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginErrorDialogComponent } from '../login-error-dialog/login-error-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router, 
               private userService: UserService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -42,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate([`/user/home/${user.userId}`]);
       },
       error: () => {
-        alert('Invalid email or password');
+        this.dialog.open(LoginErrorDialogComponent);
       }
     });
   }
