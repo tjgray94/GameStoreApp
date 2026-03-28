@@ -1,6 +1,5 @@
 package com.gamestore.controller;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -111,24 +110,12 @@ public class GameController {
 			ObjectMapper mapper = new ObjectMapper();
 			Game game = mapper.readValue(gameJson, Game.class);
 
-			// Define the path to Angular assets folder
-			Path uploadPath = Paths.get(System.getProperty("user.dir"))
-					.resolve("../../GameStoreApp/GameStore/src/assets").normalize();
+			Path uploadPath = Paths.get("uploads/images").toAbsolutePath();
+			Files.createDirectories(uploadPath);
 
-			System.out.println("Resolved upload path: " + uploadPath.toAbsolutePath());
-
-			// Create directory if it doesn't exist
-			File directory = uploadPath.toFile();
-			if (!directory.exists()) {
-				directory.mkdirs();
-			}
-
-			// Save the image file
 			String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
-			Path path = uploadPath.resolve(fileName);
-			Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(imageFile.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
 
-			// Update the game object with the image path
 			game.setImage(fileName);
 
 			// Save game to database
@@ -175,22 +162,13 @@ public class GameController {
 
 				// Handle image file if provided
 				if (imageFile != null && !imageFile.isEmpty()) {
-					String uploadDir = "/Users/tevingray/GameStoreHome/GameStoreApp/GameStore/src/assets/";
+					Path uploadPath = Paths.get("uploads/images").toAbsolutePath();
+					Files.createDirectories(uploadPath);
+
 					String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
+					Files.copy(imageFile.getInputStream(), uploadPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
 
-					// Save file
-					File directory = new File(uploadDir);
-					if (!directory.exists()) {
-						directory.mkdirs();
-					}
-
-					Path filePath = Paths.get(uploadDir + fileName);
-					Files.copy(imageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-					// Set the image filename (not full path)
 					_game.setImage(fileName);
-
-					System.out.println("Updated image saved to: " + filePath.toAbsolutePath());
 				}
 
 				return new ResponseEntity<>(gameRepository.save(_game), HttpStatus.OK);
@@ -203,11 +181,9 @@ public class GameController {
 		}
 	}
 
-
 	@DeleteMapping("/games/{userId}/{gameId}")
 	public ResponseEntity<HttpStatus> deleteGame(@PathVariable("userId") int userId,
 												 @PathVariable("gameId") int gameId) {
-
 		try {
 			Optional<Game> gameData = gameRepository.findById(gameId);
 			Game _game = gameData.get();
@@ -215,15 +191,24 @@ public class GameController {
 				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 			}
 
+			Path imagePath = Paths.get("uploads/images").toAbsolutePath().resolve(_game.getImage());
+			Files.deleteIfExists(imagePath);
+
 			gameRepository.deleteById(gameId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@DeleteMapping("/games")
 	public ResponseEntity<HttpStatus> deleteAllGames() {
 		try {
+			List<Game> games = gameRepository.findAll();
+			for (Game game : games) {
+				Path imagePath = Paths.get("uploads/images").toAbsolutePath().resolve(game.getImage());
+				Files.deleteIfExists(imagePath);
+			}
 			gameRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {

@@ -1,0 +1,11 @@
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/config/JacksonConfig.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/controller/GameController.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/repository/GameRepository.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/dto/UserResponseDTO.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/model/Game.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/dto/LoginRequest.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/repository/UserRepository.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/GameStoreMsApplication.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/model/User.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/config/WebConfig.java
+/Users/tevingray/GameStoreHome/GameStore(Back-end)/GameStoreMS/src/main/java/com/gamestore/controller/UserController.java
