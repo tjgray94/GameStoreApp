@@ -16,7 +16,7 @@ This project was built as a demonstration of a full-stack application using CRUD
 - Hibernate ORM
 - PostgreSQL,
 ### Frontend
-- Angular v11
+- Angular v21
 - TypeScript
 - HTML/CSS
 - Bootstrap
