@@ -1,0 +1,36 @@
+/* Consistent with Game components */
+.login-container {
+	max-width: 500px;
+	width: 100%;
+	margin: 40px auto;
+	border-radius: 12px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+	border: none;
+	overflow: hidden;
+	background-color: #ffffff;
+}
+
+.card-header {
+	background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+	padding: 25px;
+	color: white;
+	text-align: center;
+	border: none;
+}
+
+.page-title {
+	margin: 0;
+	font-weight: 600;
+	letter-spacing: 1px;
+	font-size: 1.6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card-body {
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

@@ -1,0 +1,131 @@
+.add-game-container {
+  max-width: 500px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
+  color: white;
+  text-align: center;
+  border: none;
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+}
+
+.card-body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form styling */
+.game-form {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.game-form .mat-form-field {
+  width: 100%;
+}
+
+.img-preview {
+  max-height: 180px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.btn {
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-primary {
+  border: 2px solid #4b6cb7;
+  color: #4b6cb7;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4b6cb7;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(75, 108, 183, 0.3);
+}
+
+.success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e8f5e9;
+  border: 1px solid #43a047;
+  color: #256029;
+  border-radius: 12px;
+  padding: 24px 16px 20px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(67,160,71,0.08);
+}
+
+.success-message-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Button group alignment */
+.game-form .d-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.game-form button {
+  min-width: 120px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .update-game-container {
+    margin: 10px;
+  }
+  .card-body {
+    padding: 10px;
+  }
+  .game-form {
+    max-width: 100%;
+    padding: 0 5px;
+  }
+}

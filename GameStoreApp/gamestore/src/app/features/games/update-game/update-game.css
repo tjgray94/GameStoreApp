@@ -1,0 +1,169 @@
+/* Modern card styling */
+.update-game-container {
+  max-width: 700px;
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Card header with gradient */
+.card-header {
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  padding: 25px;
+  color: white;
+  border: none;
+  text-align: center;
+}
+
+.page-title {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+}
+
+
+.card-body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form styling */
+.game-form {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+
+.game-form label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.game-form .form-control {
+  height: 50px;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.game-form .form-control:focus {
+  border-color: #4b6cb7;
+  box-shadow: 0 0 0 0.2rem rgba(75, 108, 183, 0.25);
+  transform: translateY(-2px);
+}
+
+.game-form .input-group-text {
+  background-color: #f8f9fa;
+  border-right: none;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.game-form .input-group .form-control {
+  border-left: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Button styling */
+.btn {
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #8e9eab 0%, #eef2f3 100%);
+  color: #333;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.nav-buttons .btn {
+  min-width: 120px;
+}
+
+/* Small text helper */
+.text-muted {
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Image preview styling */
+.img-preview {
+  max-height: 180px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .update-game-container {
+    margin: 10px;
+  }
+  .card-body {
+    padding: 10px;
+  }
+  .game-form {
+    max-width: 100%;
+    padding: 0 5px;
+  }
+}
+
+/* Material field full width and spacing */
+.game-form .mat-form-field {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* Button group alignment */
+.game-form .d-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.game-form button {
+  min-width: 120px;
+}
