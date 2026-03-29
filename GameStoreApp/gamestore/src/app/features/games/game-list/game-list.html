@@ -1,0 +1,210 @@
+<div class="container card col-md-10 col-lg-12">
+  <div class="card-header">
+    <button class="btn back-btn" (click)="goBack()" title="Back">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <h2 class="header-title">{{ pageTitle }}</h2>
+  </div>
+
+  <div class="card-body">
+    <div class="search-filter-container pb-4">
+      <div class="search-box">
+        <div class="input-group custom-search">
+          <span class="search-icon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search games by name..." 
+                 [(ngModel)]="filterValue" (ngModelChange)="onFilterChange($event)" />
+          @if (filterValue) {
+            <span class="clear-icon" (click)="onFilterChange('')">
+              <i class="fa fa-times"></i>
+            </span>
+          }
+        </div>
+      </div>
+      <a [routerLink]="['/user', id, 'games', 'add']" class="btn btn-add-game shadow-sm">
+        <i class="fa fa-plus-circle pr-2"></i> Add Game
+      </a>
+    </div>
+
+    <div> 
+      <div class="table-container">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th class="sortable col-name"
+                  (click)="onSort('name')"
+                  [attr.aria-sort]="sortState.column === 'name' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('name')"
+                  (keydown.space)="onSort('name'); $event.preventDefault()">
+                Name
+                <span class="sort-icon">
+                  @if(sortState.column !== 'name'){<i class="fa fa-sort"></i>}
+                  @if(sortState.column === 'name' && sortState.direction === 'asc'){<i class="fa fa-sort-up"></i>}
+                  @if(sortState.column === 'name' && sortState.direction === 'desc'){<i class="fa fa-sort-down"></i>}
+                </span>
+              </th>
+              <th class="sortable col-price"
+                  (click)="onSort('price')"
+                  [attr.aria-sort]="sortState.column === 'price' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('price')"
+                  (keydown.space)="onSort('price'); $event.preventDefault()">
+                Price
+                <span class="sort-icon">
+                  @if(sortState.column !== 'price'){<i class="fa fa-sort"></i>}
+                  @if(sortState.column === 'price' && sortState.direction === 'asc'){<i class="fa fa-sort-up"></i>}
+                  @if(sortState.column === 'price' && sortState.direction === 'desc'){<i class="fa fa-sort-down"></i>}
+                </span>
+              </th>
+              <th class="sortable col-release"
+                  (click)="onSort('releaseDate')"
+                  [attr.aria-sort]="sortState.column === 'releaseDate' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('releaseDate')"
+                  (keydown.space)="onSort('releaseDate'); $event.preventDefault()">
+                Released
+                <span class="sort-icon">
+                  @if(sortState.column !== 'releaseDate'){<i class="fa fa-sort"></i>}
+                  @if(sortState.column === 'releaseDate' && sortState.direction === 'asc'){<i class="fa fa-sort-up"></i>}
+                  @if(sortState.column === 'releaseDate' && sortState.direction === 'desc'){<i class="fa fa-sort-down"></i>}
+                </span>
+              </th>
+              <th class="sortable col-rating text-center"
+                  (click)="onSort('rating')"
+                  [attr.aria-sort]="sortState.column === 'rating' ? sortState.direction : 'none'"
+                  role="columnheader"
+                  tabindex="0"
+                  (keydown.enter)="onSort('rating')"
+                  (keydown.space)="onSort('rating'); $event.preventDefault()">
+                Rating
+                <span class="sort-icon">
+                  @if(sortState.column !== 'rating'){<i class="fa fa-sort"></i>}
+                  @if(sortState.column === 'rating' && sortState.direction === 'asc'){<i class="fa fa-sort-up"></i>}
+                  @if(sortState.column === 'rating' && sortState.direction === 'desc'){<i class="fa fa-sort-down"></i>}
+                </span>
+              </th>
+              <th class="col-actions text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (game of games; track game.gameId; let i = $index) {
+              <tr [class.active]="i == currentIndex" (click)="setActiveGame(game, i)">
+                <td class="py-2">{{ game.name }}</td>
+                <td class="py-2">{{ game.price | currency }}</td>
+                <td class="py-2">{{ game.releaseDate | date: 'shortDate' }}</td>
+                <td class="py-2 text-center">
+                  <app-star [rating]='game.rating' (ratingClicked)='onRatingClicked($event)'></app-star>
+                </td>
+                <td class="actions py-2 text-center">
+                  <a routerLink="{{ game.gameId }}" class="btn btn-outline-info btn-sm" title="View">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a [routerLink]="['/user', id, 'games', game.gameId, 'update']" class="btn btn-outline-primary btn-sm" title="Update">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                  <button type="button" (click)="delete(game.gameId!)" class="btn btn-outline-danger btn-sm" title="Delete">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination controls -->
+      <div class="pagination-container">
+        @if(loading) {
+          <div class="text-center my-2">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        }
+
+        @if(!loading && totalPages > 0) {
+          <div class="pagination-row">
+            <div class="pagination-info">
+              Showing {{ pageSize * currentPage + 1 }} to 
+              {{ pageSize * currentPage + games.length }} of {{ totalItems }} entries
+            </div>
+
+            <nav aria-label="Game list pagination">
+              <ul class="pagination mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 0">
+                  <button type="button"
+                          class="page-link"
+                          (click)="previousPage()" 
+                          [disabled]="currentPage === 0"
+                  >
+                    <i class="fa fa-chevron-left"></i>
+                  </button>
+                </li>
+
+                <li class="page-item">
+                  <span class="page-link">Page {{currentPage + 1}} of {{totalPages}}</span>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                  <button type="button"
+                          class="page-link" 
+                          (click)="nextPage()" 
+                          [disabled]="currentPage === totalPages - 1"
+                  >
+                    <i class="fa fa-chevron-right"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        }
+        <button class="btn btn-outline-danger delete-all-btn" (click)="removeAllGames()">Delete All</button>
+      </div>
+    </div>
+    
+    
+    @if(!games || games.length === 0) {
+      <div class="no-games">
+        @if(filterValue) {<p>No games match your search.</p>}
+        @if(!filterValue) {
+          <ng-container>
+            <p>No games available. Add some games to get started!</p>
+          </ng-container>
+        }
+      </div>
+    }
+  </div>
+  
+  @if(currentGame) {
+    <div class="col-md-6">
+      <div class="game-details">
+        <h4>Game Details</h4>
+        <div>
+          <label><strong>Name:</strong></label> {{ currentGame.name }}
+        </div>
+        <div>
+          <label><strong>Price:</strong></label> {{ currentGame.price | currency }}
+        </div>
+        <div>
+          <label><strong>Release Date:</strong></label> {{ currentGame.releaseDate | date: 'mediumDate' }}
+        </div>
+        <div>
+          <label><strong>Rating:</strong></label> {{ currentGame.rating }}
+        </div>
+        <a class="badge badge-warning" routerLink="/games/{{ currentGame.gameId }}">Edit Game</a>
+      </div>
+    </div>
+  }
+  @if(!currentGame && games && games.length > 0) {
+    <div class="col-md-6">
+      <div class="select-game">
+        <p>Select a game to view details</p>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,111 @@
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #f5f5f5;">
+  <div class="add-user-container">
+    <div class="card-header">
+      <h1 class="page-title">Create New User</h1>
+    </div>
+    <div class="card-body">
+      @if (!submitted) {
+        <form [formGroup]="userForm" (ngSubmit)="saveUser()" autocomplete="off">
+          <div style="display: flex; flex-direction: column; gap: 20px; width: 400px;">
+            <!-- Name Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput type="text" id="name" formControlName="name" />
+              @if (formSubmitted && f['name'].errors) {
+                @if (f['name'].errors['required']) {
+                  <mat-error>Name is required</mat-error>
+                }
+                @if (f['name'].errors['minlength']) {
+                  <mat-error>Name must be at least 2 characters</mat-error>
+                }
+              }
+            </mat-form-field>
+
+            <!-- Email Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" id="email" formControlName="email" placeholder="example@email.com" />
+              @if (formSubmitted && f['email'].errors) {
+                @if (f['email'].errors['required']) {
+                  <mat-error>Email is required</mat-error>
+                }
+                @if (f['email'].errors['email'] || f['email'].errors['pattern']) {
+                  <mat-error>Please enter a valid email address (e.g., name@example.com)</mat-error>
+                }
+              }
+            </mat-form-field>
+
+            <!-- Password Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" id="password" formControlName="password" />
+              @if (formSubmitted && f['password'].errors) {
+                @if (f['password'].errors['required']) {
+                  <mat-error>Password is required</mat-error>
+                }
+                @if (f['password'].errors['minlength']) {
+                  <mat-error>Password must be at least 8 characters</mat-error>
+                }
+              }
+              <mat-hint>Must be at least 8 characters long</mat-hint>
+            </mat-form-field>
+
+            <!-- Confirm Password Field -->
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput type="password" id="confirmPassword" formControlName="confirmPassword" />
+              @if (formSubmitted && (f['confirmPassword'].errors || userForm.hasError('passwordMismatch'))) {
+                @if (f['confirmPassword'].errors?.['required']) {
+                  <mat-error>Please confirm your password</mat-error>
+                }
+                @if (userForm.hasError('passwordMismatch')) {
+                  <mat-error>Passwords do not match</mat-error>
+                }
+              }
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <div style="display: flex; justify-content: center; margin-top: 8px;">
+              <button mat-stroked-button color="primary" type="submit"
+                style="
+                  border-radius: 6px;
+                  font-weight: 500;
+                  letter-spacing: 0.5px;
+                  padding: 8px 20px;
+                  display: flex;
+                  align-items: center;">
+                <mat-icon style="margin-right: 6px; font-size: 20px;">person_add</mat-icon>
+                Create Account
+              </button>
+            </div>
+          </div>
+        </form>
+      }
+
+      @if (submitted) {
+        <div class="text-center">
+          <div class="success-message" style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #e8f5e9;
+            border: 1px solid #43a047;
+            color: #256029;
+            border-radius: 12px;
+            padding: 24px 16px 20px 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(67,160,71,0.08);">
+            <mat-icon style="font-size: 24px; color: #43a047; margin-bottom: 8px;">check_circle</mat-icon>
+            <h3 style="margin: 0 0 8px 0; font-weight: 600;">Success!</h3>
+            <div style="font-size: 0.98rem; color: #388e3c; text-align: center;">You can now log in with your new account.</div>
+          </div>
+          <div style="display: flex; justify-content: center; width: 100%; margin-top: 16px;">
+            <button mat-stroked-button color="primary" (click)="newUser()" class="another-user-btn">
+              Add Another User
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

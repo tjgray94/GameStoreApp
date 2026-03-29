@@ -1,0 +1,85 @@
+<div class="container add-game-container">
+  <div class="card-header">
+    <h1 class="page-title">Add New Game</h1>
+  </div>
+
+  <div class="card-body">
+    @if(!submitted) {
+      <form [formGroup]="gameForm" (ngSubmit)="saveGame()" class="game-form">
+
+          <!-- Name Field -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. The Legend of Zelda" required />
+            @if(formSubmitted && f['name'].errors?.['required']) {<mat-error>Name is required</mat-error>}
+          </mat-form-field>
+
+          <!-- Image Field -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Image</mat-label>
+            <input matInput [value]="imageFileName" placeholder="Choose an image..." readonly />
+            <button mat-icon-button matSuffix type="button" (click)="fileInput.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+            <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+          </mat-form-field>
+
+          @if(imagePreview) {
+            <div class="mb-3 text-center">
+              <img [src]="imagePreview" class="img-preview mat-elevation-z2" alt="Game image preview" />
+            </div>
+          }
+
+          <!-- Price Field -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Price</mat-label>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput type="number" formControlName="price" placeholder="e.g. 49.99" step="0.01" required />
+            @if(formSubmitted && f['price'].errors?.['required']) {<mat-error>Price is required</mat-error>}
+            @if(formSubmitted && f['price'].errors?.['min']) {<mat-error>Price must be greater than or equal to 0</mat-error>}
+          </mat-form-field>
+
+          <!-- Release Date Field -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Release Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="releaseDate" placeholder="MM/DD/YYYY" autocomplete="off" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if(formSubmitted && f['releaseDate'].errors?.['required']) {<mat-error>Release date is required</mat-error>}
+          </mat-form-field>
+
+          <!-- Rating Field -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Rating (0-5)</mat-label>
+            <input matInput type="number" formControlName="rating" placeholder="e.g. 4.7" min="0" max="5" step="0.1" required />
+            @if(formSubmitted && f['rating'].errors?.['required']) {<mat-error>Rating is required</mat-error>}
+            @if(formSubmitted && f['rating'].errors?.['min']) {<mat-error>Rating must be at least 0</mat-error>}
+            @if(formSubmitted && f['rating'].errors?.['max']) {<mat-error>Rating cannot exceed 5</mat-error>}
+          </mat-form-field>
+
+          <div class="d-flex justify-content-between mt-4">
+            <button mat-raised-button color="primary" type="submit">Submit Game</button>
+            <button mat-stroked-button color="warn" type="button" (click)="goBack()">Cancel</button>
+          </div>
+      </form>
+    }
+
+    @if(submitted) {
+      <div class="text-center">
+        <div class="success-message">
+          <mat-icon style="font-size: 24px; color: #43a047; margin-bottom: 8px;">check_circle</mat-icon>
+          <h3 style="margin: 0 0 8px 0; font-weight: 600;">Success!</h3>
+          <div style="font-size: 0.98rem; color: #388e3c; text-align: center;">Game has been added to the store.</div>
+        </div>
+        <div style="display: flex; justify-content: center; width: 100%; margin-top: 16px; gap: 16px;">
+          <button mat-stroked-button color="primary" type="button" (click)="newGame()" class="success-message-btn">
+            Add Another Game
+          </button>
+          <button mat-stroked-button color="primary" type="button" (click)="viewGames()" class="success-message-btn">
+            View My Games
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
